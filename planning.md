@@ -9,16 +9,9 @@
     
     - Order of Operation:
         1. build base model
-            - choose model type (only linear regression at first)
-            - instantiate
-        2. acquire dataset
-        3. feature management
-            - instantiate dataset as features
-            - manual adjustment
-            - automatic adjustment
-        4. hyperparameter adjustment
-        5. loss compution / model adjustment
-        6. print results
+        2. adjust hyperparameters
+        3. feed data, readjust model
+        4. view results
 
 - Model
     - just the model
