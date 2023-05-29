@@ -1,25 +1,27 @@
-Order of Things:
-1. Instantiate empty model (weights and bias are 0s)
-2. (Name feature values in model, useful for analysis)
-3. Compare basic model to data, compute loss
-4. Adjust weight values
-5. Redo 3 & 4 until loss converges
-
-- 3 4 & 5 are adjustable for things like learning rate, number of epochs, etc
-
-
-STEP FOUR: ADJUST WEIGHT VALUES
-...
-
-Model
-    this is the actual model
-    y = wx + b (1d version)
+- ML App
+    - Manages:
+        - Model
+        - Feature manager
+        - Data set acquisition
+        - Hyperparameters
+        - Model adjustment / loss compution
+        - Results
     
-    Attributes
-    - weights array
-    - bias
+    - Order of Operation:
+        1. build base model
+            - choose model type (only linear regression at first)
+            - instantiate
+        2. acquire dataset
+        3. feature management
+            - instantiate dataset as features
+            - manual adjustment
+            - automatic adjustment
+        4. hyperparameter adjustment
+        5. loss compution / model adjustment
+        6. print results
 
-    Constructor:
-        takes num of features
-        instantiates weights array as 0s, size = num of features
-        instantiates bias as 0
+- Model
+    - just the model
+    1. get weights and bias
+    2. get num of features/weights
+    3. get partial derivatives
