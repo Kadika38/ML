@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+// This is my first attempt at linear regression - it uses just one feature / weight
 public class Early {
     ArrayList<Double> xdata;
     ArrayList<Double> ydata;
