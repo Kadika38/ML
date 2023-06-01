@@ -4,3 +4,6 @@
 - Adjust hyperparameters
 - Learn
 - View results
+
+Todo:
+    - Explanatory comments in Early3.model()

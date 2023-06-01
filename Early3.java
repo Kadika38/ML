@@ -14,6 +14,10 @@ public class Early3 {
     ArrayList<Double> labels;
 
     Random random;
+
+    ArrayList<Double> modelWeights;
+    Double modelBias;
+    Double lr;
     
     Early3() {
         // Data creation
@@ -23,6 +27,7 @@ public class Early3 {
         this.numOfFeatures = this.random.nextInt(15) + 1;
         System.out.println(this.numOfFeatures + " features generated...");
         // random actual weight between 0 (inclusive) and 50 (exclusive) attributed to each feature
+        this.actualFeatureWeights = new ArrayList<Double>();
         for (int i = 0; i < this.numOfFeatures; i++) {
             this.actualFeatureWeights.add(this.random.nextDouble() * 50);
         }
@@ -57,11 +62,38 @@ public class Early3 {
         System.out.println("Random data creation complete.");
 
         // Initialize model system
+        this.modelWeights = new ArrayList<Double>();
+        this.modelBias = 0.0;
+        for (int i = 0; i < this.numOfFeatures; i++) {
+            this.modelWeights.add(0.0);
+        }
+        this.lr = 0.01;
+    }
 
+    public void model() {
+        for (int i = 0; i < this.numOfFeatures; i++) {
+            ArrayList<Double> current = this.datasets.get(i);
+            Double totalLoss = 0.0;
+            for (int j = 0; j < 500; j++) {
+                Double holder = 0.0;
+                Double coefficient = (-2.0) * current.get(j);
+                Double label = this.labels.get(j);
+                for (int f = 0; f < this.numOfFeatures; f++) {
+                    ArrayList<Double> weightAdjCurrent = this.datasets.get(f);
+                    holder += (this.modelWeights.get(f) * weightAdjCurrent.get(j));
+                }
+                holder += this.modelBias;
+                totalLoss += coefficient * (label - holder);
+            }
+            Double lossAdj = totalLoss / 500;
+            this.modelWeights.set(i, this.modelWeights.get(i) - (this.lr * lossAdj));
+        }
+        // perform same process as above, but for model bias
+        // HERE
     }
 
     public static void main(String[] args) {
         Early3 t = new Early3();
-        t.model();
+        //t.model();
     }
 }
