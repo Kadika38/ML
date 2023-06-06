@@ -71,6 +71,7 @@ public class Early3 {
     }
 
     public void model() {
+        // compute loss for each feature and adjust model weight accordingly
         for (int i = 0; i < this.numOfFeatures; i++) {
             ArrayList<Double> current = this.datasets.get(i);
             Double totalLoss = 0.0;
@@ -89,7 +90,20 @@ public class Early3 {
             this.modelWeights.set(i, this.modelWeights.get(i) - (this.lr * lossAdj));
         }
         // perform same process as above, but for model bias
-        // HERE
+        Double totalLossB = 0.0;
+        for (int i = 0; i < 500; i++) {
+            Double holder = 0.0;
+            Double coefficient = (-2.0);
+            Double label = this.labels.get(i);
+            for (int j = 0; j < this.numOfFeatures; j++) {
+                ArrayList<Double> current = this.datasets.get(j);
+                holder += (this.modelWeights.get(j) * current.get(i));
+            }
+            holder += this.modelBias;
+            totalLossB += coefficient * (label - holder);
+        }
+        Double lossAdjB = totalLossB / 500;
+        this.modelBias = this.modelBias - (this.lr * lossAdjB);
     }
 
     public static void main(String[] args) {
