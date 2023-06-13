@@ -6,5 +6,4 @@
 - View results
 
 Todo:
-    - Define goals of Early4
-    - Explanatory comments in Early3.model()
+    - Early4
