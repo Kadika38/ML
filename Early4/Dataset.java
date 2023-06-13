@@ -10,6 +10,4 @@ public class Dataset {
         this.dataset = dataset;
         this.features = features;
     }
-
-    
 }
