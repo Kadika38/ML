@@ -1,5 +1,5 @@
 package Early4;
 
-public class ML {
+public class Modeler {
     
 }
