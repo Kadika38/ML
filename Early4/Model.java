@@ -1,5 +1,6 @@
 package Early4;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Model {
@@ -14,6 +15,20 @@ public class Model {
         this.bias = 0.0;
     }
 
-    
+    public ArrayList<Double> getWeights() {
+        return this.weights;
+    }
+
+    public Double getBias() {
+        return this.bias;
+    }
+
+    public void setWeight(int index, Double value) {
+        this.weights.set(index, value);
+    }
+
+    public void setBias(Double value) {
+        this.bias = value;
+    }
 
 }
