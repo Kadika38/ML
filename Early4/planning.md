@@ -1,8 +1,5 @@
 Todo:
-    - Model.java
-    - Dataset.java
-    - DatasetBuilder.java
-    - Modeler.java
+    - Continue to write Modeler.model()
 
 Minimum Viable Product (MVP):
 
