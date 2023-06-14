@@ -77,6 +77,7 @@ public class Early3 {
 
     public Double model() {
         // compute loss for each feature and adjust model weight accordingly
+        // ye used only for testing
         boolean ye = true;
         for (int i = 0; i < this.numOfFeatures; i++) {
             ArrayList<Double> current = this.datasets.get(i);

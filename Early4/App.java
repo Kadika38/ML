@@ -10,7 +10,9 @@ public class App {
 
         //TESTING
         // Create a randomized Dataset object using the DataGenerator class
-        DataGenerator dg = new DataGenerator();
-        System.out.println(dg.getActualFunction());
+        DataGenerator dg = new DataGenerator(6);
+        Dataset theDataset = dg.getDataset();
+        Modeler modeler = new Modeler();
+        modeler.model(theDataset);
     }
 }

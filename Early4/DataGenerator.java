@@ -19,9 +19,9 @@ public class DataGenerator {
     public Dataset d;
 
     
-    DataGenerator() {
+    DataGenerator(Integer numOfFeatures) {
         // Parameters
-        this.numOfFeatures = 15;
+        this.numOfFeatures = numOfFeatures;
         this.weightMax = 50.0;
         this.dataCount = 500;
         this.dataMax = 200.0;
@@ -98,5 +98,18 @@ public class DataGenerator {
         f += this.actualBias.toString();
 
         return f;
+    }
+
+    public Double computeTestLabel(ArrayList<Double> testData) {
+        if (this.numOfFeatures != testData.size()) {
+            throw new Error("Invalid input - number of datapoints does not match number of features");
+        }
+
+        Double l = this.actualBias;
+        for (int i = 0; i < this.numOfFeatures; i++) {
+            l += (this.actualFeatureWeights.get(i) * testData.get(i));
+        }
+
+        return l;
     }
 }
