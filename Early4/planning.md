@@ -1,5 +1,5 @@
 Todo:
-    - Continue to write Modeler.model()
+    - 
 
 Minimum Viable Product (MVP):
 

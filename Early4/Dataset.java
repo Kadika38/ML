@@ -21,4 +21,12 @@ public class Dataset {
     public ArrayList<Double> getSingleFeatureDataset(Integer index) {
         return this.datasets.get(index);
     }
+
+    public ArrayList<Double> getLabels() {
+        return this.labels;
+    }
+
+    public Integer getNumOfDatapoints() {
+        return this.datasets.get(0).size();
+    }
 }
