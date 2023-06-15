@@ -56,7 +56,7 @@ public class DataGenerator {
         System.out.println("Feature datasets generated ...");
 
         // calculate labels
-        for (int i = 0; i < this.dataMax; i++) {
+        for (int i = 0; i < this.dataCount; i++) {
             Double labelVal = this.actualBias;
             for (int j = 0; j < this.numOfFeatures; j++) {
                 ArrayList<Double> thisFeatureDataset = this.datasets.get(j);

@@ -29,5 +29,4 @@ public class Model {
     public void setBias(Double value) {
         this.bias = value;
     }
-
 }

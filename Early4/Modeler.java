@@ -20,7 +20,7 @@ public class Modeler {
         Double lr = 0.001;
         Double lrReductionRate = 0.1;
         Double averageLossPrevious = 0.0;
-        Double averageLossNew = 10000.0;
+        Double averageLossNew = -10000.0;
 
         while (averageLossPrevious.intValue() != averageLossNew.intValue()) {
             // if average loss is flip flopping between being positive and negative or getting larger, reduce learning rate
@@ -71,7 +71,7 @@ public class Modeler {
             Double averageLoss = 0.0;
             for (int i = 0; i < dataset.getNumOfDatapoints(); i++) {
                 Double predictedValue = model.getBias();
-                for (int l = 0; j < numOfFeatures; j++) {
+                for (int j = 0; j < numOfFeatures; j++) {
                     ArrayList<Double> current = dataset.getSingleFeatureDataset(j);
                     predictedValue += (model.getWeights().get(j) * current.get(i));
                 }
