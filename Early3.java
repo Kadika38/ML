@@ -24,7 +24,7 @@ public class Early3 {
     
     Early3() {
         // Parameters
-        this.lr = 0.00001;
+        this.lr = 0.01;
         this.numOfFeatures = 15;
         this.weightMax = 50.0;
         this.dataCount = 500;
