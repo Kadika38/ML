@@ -17,16 +17,19 @@ public class Modeler {
         }
         model.setBias(0.0);
 
-        Double lr = 0.001;
+        Double lr = 0.01;
         Double lrReductionRate = 0.1;
         Double averageLossPrevious = 0.0;
         Double averageLossNew = -10000.0;
+        int epochs = 0;
 
-        while (averageLossPrevious.intValue() != averageLossNew.intValue()) {
+        while (averageLossPrevious.intValue() != averageLossNew.intValue() || averageLossNew.intValue() == Integer.MAX_VALUE || averageLossNew.intValue() == Integer.MIN_VALUE || averageLossPrevious.intValue() == Integer.MAX_VALUE || averageLossPrevious.intValue() == Integer.MIN_VALUE) {
+            epochs++;
+            System.out.println("ALN: " + averageLossNew.intValue() + " | ALP: " + averageLossPrevious.intValue());
             // if average loss is flip flopping between being positive and negative or getting larger, reduce learning rate
-            if ((averageLossNew > 0.0 && averageLossPrevious < 0.0) || (averageLossNew < 0.0 && averageLossPrevious > 0.0) || (averageLossNew > averageLossPrevious)) {
+            if ((averageLossNew > 0.0 && averageLossPrevious < 0.0) || (averageLossNew < 0.0 && averageLossPrevious > 0.0) || ((Math.pow(averageLossNew, 2) >= Math.pow(averageLossPrevious, 2)))) {
                 lr = lr * lrReductionRate;
-                System.out.println("Learning rate reduced");
+                System.out.println("Learning rate reduced to " + lr);
             }
 
             averageLossPrevious = averageLossNew;
@@ -67,6 +70,12 @@ public class Modeler {
             Double lossAdjB = totalLossB / dataset.getNumOfDatapoints();
             model.setBias(model.getBias() - (lr * lossAdjB));
 
+            System.out.print("Weights n Bias: ");
+            for (int i = 0; i < model.getWeights().size(); i++) {
+                System.out.print("w" + i + ":" + model.getWeights().get(i) + " ");
+            }
+            System.out.println("b:" + model.getBias());
+
             // compute new average loss
             Double averageLoss = 0.0;
             for (int i = 0; i < dataset.getNumOfDatapoints(); i++) {
@@ -83,6 +92,8 @@ public class Modeler {
             System.out.println("Average Loss: " + averageLoss);
         }
         
+        System.out.println("ALN: " + averageLossNew.intValue() + " | ALP: " + averageLossPrevious.intValue());
+        System.out.println("Epochs: " + epochs);
         return model;
     }
     

@@ -1,5 +1,5 @@
 Todo:
-    - 
+    - improve Modeler.model()
 
 Minimum Viable Product (MVP):
 
