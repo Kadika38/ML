@@ -1,5 +1,10 @@
 package Early4;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 public class App {
     
     public static void main(String[] args) {
@@ -10,9 +15,27 @@ public class App {
 
         //TESTING
         // Create a randomized Dataset object using the DataGenerator class
-        DataGenerator dg = new DataGenerator(15);
+        /* DataGenerator dg = new DataGenerator(15);
         Dataset theDataset = dg.getDataset();
         Modeler modeler = new Modeler();
-        modeler.model(theDataset, 0.000001, 1000);
+        modeler.model(theDataset, 0.000001, 1000); */
+        // ^ the above commented out code runs well
+
+        //TESTING2
+        // take real json data and build a dataset with it
+        // then create a model of it
+        // then make a prediction with the model
+        try {
+            Path filename = Path.of("/home/kadika/Coding/ML/Early4/json.txt");
+            String json = Files.readString(filename);
+            JSONBucket bucket = new JSONBucket(json);
+            ArrayList<JSONBucket> dataPointsAsBuckets = (ArrayList<JSONBucket>) bucket.getValue("values");
+            System.out.println(dataPointsAsBuckets.size());
+
+
+        } catch (IOException e) {
+            System.out.println("Error...lol");
+        }
+
     }
 }
