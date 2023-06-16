@@ -17,7 +17,8 @@ public class Modeler {
         int epochs = 0;
 
         while (averageLossNew != averageLossPrevious && epochs < numOfEpochs) {
-            model.linearRegression(lr);
+            averageLossPrevious = averageLossNew;
+            averageLossNew = model.linearRegression(lr);
             epochs++;
         }
         
