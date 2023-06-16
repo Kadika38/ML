@@ -30,8 +30,9 @@ public class App {
             String json = Files.readString(filename);
             JSONBucket bucket = new JSONBucket(json);
             ArrayList<JSONBucket> dataPointsAsBuckets = (ArrayList<JSONBucket>) bucket.getValue("values");
-            System.out.println(dataPointsAsBuckets.size());
-
+            ArrayList<ArrayList<Double>> data = new ArrayList<ArrayList<Double>>();
+            ArrayList<Double> labelData = new ArrayList<Double>();
+            // Plan how to build the Dataset and then write this
 
         } catch (IOException e) {
             System.out.println("Error...lol");
