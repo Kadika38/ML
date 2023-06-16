@@ -16,6 +16,14 @@ public class Model {
         this.dataset = dataset;
     }
 
+    public ArrayList<Double> getWeights() {
+        return this.weights;
+    }
+
+    public Double getBias() {
+        return this.bias;
+    }
+
     // Performs one iteration of linear regression on the dataset, adjusting the model accordingly
     // Returns the squared average loss of the new model when compared to the data
     public Double linearRegression(Double lr) {

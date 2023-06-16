@@ -8,16 +8,18 @@ public class Modeler {
 
     }
 
-    public Model model(Dataset dataset) {
+    public Model model(Dataset dataset, Double lr, int numOfEpochs) {
         // initialize the model
         Model model = new Model(dataset);
 
-        Double lr = 0.01;
-        Double lrReductionRate = 0.1;
-        Double averageLossPrevious = 0.0;
-        Double averageLossNew = null;
+        Double averageLossPrevious = model.linearRegression(lr);
+        Double averageLossNew = model.linearRegression(lr);
         int epochs = 0;
 
+        while (averageLossNew != averageLossPrevious && epochs < numOfEpochs) {
+            model.linearRegression(lr);
+            epochs++;
+        }
         
 
         return model;
