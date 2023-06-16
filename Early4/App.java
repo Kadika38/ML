@@ -13,6 +13,6 @@ public class App {
         DataGenerator dg = new DataGenerator(15);
         Dataset theDataset = dg.getDataset();
         Modeler modeler = new Modeler();
-        modeler.model(theDataset);
+        modeler.model(theDataset, 0.000001, 1000);
     }
 }
