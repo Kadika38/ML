@@ -58,7 +58,13 @@ public class App {
 
                 buildFeatureNameArray = false;
             }
+            // Finally build the Dataset
             Dataset ds = new Dataset(data, labelData, featureNames);
+
+            // Model the dataset
+            Modeler modeler = new Modeler();
+            modeler.model(ds, 0.00000000000001, 4);
+            //Average Loss: 1.734757799053879E191
 
         } catch (IOException e) {
             System.out.println("Error...lol");
