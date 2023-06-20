@@ -32,7 +32,33 @@ public class App {
             ArrayList<JSONBucket> dataPointsAsBuckets = (ArrayList<JSONBucket>) bucket.getValue("values");
             ArrayList<ArrayList<Double>> data = new ArrayList<ArrayList<Double>>();
             ArrayList<Double> labelData = new ArrayList<Double>();
-            // Plan how to build the Dataset and then write this
+            ArrayList<String> featureNames = new ArrayList<String>();
+            boolean buildFeatureNameArray = true;
+            for (int i = 0; i < dataPointsAsBuckets.size()-30; i++) {
+                labelData.add(Double.parseDouble((String)dataPointsAsBuckets.get(i).getValue("close")));
+                ArrayList<Double> datapoint = new ArrayList<Double>();
+                for (int j = 1; j < 31; j++) {
+                    JSONBucket current = dataPointsAsBuckets.get(i+j);
+                    datapoint.add(Double.parseDouble((String)current.getValue("open")));
+                    datapoint.add(Double.parseDouble((String)current.getValue("high")));
+                    datapoint.add(Double.parseDouble((String)current.getValue("low")));
+                    datapoint.add(Double.parseDouble((String)current.getValue("close")));
+                    datapoint.add(Double.parseDouble((String)current.getValue("volume")));
+
+                    if (buildFeatureNameArray) {
+                        String num = Integer.toString(j);
+                        featureNames.add("open" + num);
+                        featureNames.add("high" + num);
+                        featureNames.add("low" + num);
+                        featureNames.add("close" + num);
+                        featureNames.add("volume" + num);
+                    }
+                }
+                data.add(datapoint);
+
+                buildFeatureNameArray = false;
+            }
+            Dataset ds = new Dataset(data, labelData, featureNames);
 
         } catch (IOException e) {
             System.out.println("Error...lol");
