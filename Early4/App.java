@@ -64,7 +64,16 @@ public class App {
             // Model the dataset
             Modeler modeler = new Modeler();
             Model m = modeler.model(ds, 0.000000000000000001, 100);
-
+            ArrayList<Double> ltd = new ArrayList<Double>();
+            for (int i = 0; i < 30; i++) {
+                JSONBucket current = dataPointsAsBuckets.get(i);
+                ltd.add(Double.parseDouble((String)current.getValue("open")));
+                ltd.add(Double.parseDouble((String)current.getValue("high")));
+                ltd.add(Double.parseDouble((String)current.getValue("low")));
+                ltd.add(Double.parseDouble((String)current.getValue("close")));
+                ltd.add(Double.parseDouble((String)current.getValue("volume")));
+            }
+            System.out.println(m.predict(ltd));
         } catch (IOException e) {
             System.out.println("Error...lol");
         }
