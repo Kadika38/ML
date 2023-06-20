@@ -89,4 +89,17 @@ public class Model {
             System.out.println("Average Loss: " + averageLoss);
             return Math.pow(averageLoss, 2);
     }
+
+    public Double predict(ArrayList<Double> d) {
+        if (d.size() != this.weights.size()) {
+            System.out.println("size error");
+        }
+
+        Double prediction = this.bias;
+        for (int i = 0; i < this.weights.size(); i++) {
+            prediction += this.weights.get(i) * d.get(i);
+        }
+
+        return prediction;
+    }
 }
