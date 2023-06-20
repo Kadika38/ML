@@ -63,8 +63,7 @@ public class App {
 
             // Model the dataset
             Modeler modeler = new Modeler();
-            modeler.model(ds, 0.00000000000001, 4);
-            //Average Loss: 1.734757799053879E191
+            Model m = modeler.model(ds, 0.000000000000000001, 100);
 
         } catch (IOException e) {
             System.out.println("Error...lol");

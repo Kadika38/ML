@@ -27,7 +27,8 @@ public class Model {
     // Performs one iteration of linear regression on the dataset, adjusting the model accordingly
     // Returns the squared average loss of the new model when compared to the data
     public Double linearRegression(Double lr) {
-        // Compute loss for each feature and adjust model weight accordingly
+        ArrayList<Double> newWeights = new ArrayList<Double>();
+        // Compute loss for each feature and compute new weights
             for (int i = 0; i < this.weights.size(); i++) {
                 ArrayList<Double> current = this.dataset.getSingleFeatureDataset(i);
                 Double totalLoss = 0.0;
@@ -44,7 +45,7 @@ public class Model {
                 }
                 Double lossAdj = totalLoss / this.dataset.getNumOfDatapoints();
                 // Adjust model weight
-                this.weights.set(i, this.weights.get(i) - (lr * lossAdj));
+                newWeights.add(this.weights.get(i) - (lr * lossAdj));
             }
 
             // perform same process as above, but for model bias
@@ -61,13 +62,18 @@ public class Model {
                 totalLossB += coefficient * (label - holder);
             }
             Double lossAdjB = totalLossB / this.dataset.getNumOfDatapoints();
+
+            // Actually adjust weights and bias
+            for (int i = 0; i < this.weights.size(); i++) {
+                this.weights.set(i, newWeights.get(i));
+            }
             this.bias = (this.bias - (lr * lossAdjB));
 
-            System.out.print("Weights n Bias: ");
+            /* System.out.print("Weights n Bias: ");
             for (int i = 0; i < this.weights.size(); i++) {
                 System.out.print("w" + i + ":" + this.weights.get(i) + " ");
             }
-            System.out.println("b:" + this.bias);
+            System.out.println("b:" + this.bias); */
 
             // compute average loss and return it
             Double averageLoss = 0.0;
