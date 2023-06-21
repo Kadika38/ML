@@ -25,5 +25,22 @@ public class Modeler {
 
         return model;
     }
+
+    public ArrayList<ArrayList<Double>> predictionVersusReality(Dataset d, Model m) {
+        ArrayList<ArrayList<Double>> pvr = new ArrayList<ArrayList<Double>>();
+        for (int i = 0; i < d.getNumOfDatapoints(); i++) {
+            pvr.add(new ArrayList<Double>());
+        }
+        for (int i = 0; i < d.getNumOfDatapoints(); i++) {
+            ArrayList<Double> datapoint = new ArrayList<Double>();
+            for (int j = 0; j < d.getNumOfFeatures(); j++) {
+                datapoint.add(d.getSingleFeatureDataset(j).get(i));
+            }
+            pvr.get(i).add(d.getLabels().get(i));
+            pvr.get(i).add(m.predict(datapoint));
+        }
+
+        return pvr;
+    }
     
 }

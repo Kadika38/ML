@@ -25,6 +25,7 @@ public class App {
         // take real json data and build a dataset with it
         // then create a model of it
         // then make a prediction with the model
+        int numOfDays = 2;
         try {
             Path filename = Path.of("/home/kadika/Coding/ML/Early4/json.txt");
             String json = Files.readString(filename);
@@ -40,7 +41,7 @@ public class App {
             ArrayList<String> featureNames = new ArrayList<String>();
 
             // name features
-            for (Integer i = 0; i < 30; i++) {
+            for (Integer i = 0; i < numOfDays; i++) {
                 featureNames.add("open" + Integer.toString(i+1));
                 featureNames.add("high" + Integer.toString(i+1));
                 featureNames.add("low" + Integer.toString(i+1));
@@ -49,16 +50,16 @@ public class App {
             }
 
             // build dataset & label set
-            for (int i = 0; i < 150; i++) {
+            for (int i = 0; i < numOfDays*5; i++) {
                 data.add(new ArrayList<Double>());
             }
-            for (int i = 30; i < dataPointsAsBuckets.size(); i++) {
+            for (int i = numOfDays; i < dataPointsAsBuckets.size(); i++) {
                 JSONBucket currentDataPoint = dataPointsAsBuckets.get(i);
                 // get label from current datapoint
                 labelData.add(Double.parseDouble((String)currentDataPoint.getValue("close")));
-                // get data from previous 30 days
+                // get data from previous days
                 int dataIterator = 0;
-                for (int j = i-30; j < i; j++) {
+                for (int j = i-numOfDays; j < i; j++) {
                     JSONBucket currentPreviousDataPoint = dataPointsAsBuckets.get(j);
                     data.get(0 + (dataIterator * 5)).add(Double.parseDouble((String)currentPreviousDataPoint.getValue("open")));
                     data.get(1 + (dataIterator * 5)).add(Double.parseDouble((String)currentPreviousDataPoint.getValue("high")));
@@ -73,13 +74,13 @@ public class App {
 
             // Model the dataset
             Modeler modeler = new Modeler();
-            Model m = modeler.model(ds, 0.000000000000000001, 50);
+            Model m = modeler.model(ds, 0.00000000000000001, 100);
 
 
             // Make a prediction using the Model
             // first we have to build the data used for the prediction
             ArrayList<Double> predictionData = new ArrayList<Double>();
-            for (int i = dataPointsAsBuckets.size()-30; i < dataPointsAsBuckets.size(); i++) {
+            for (int i = dataPointsAsBuckets.size()-numOfDays; i < dataPointsAsBuckets.size(); i++) {
                 JSONBucket currentPreviousDataPoint = dataPointsAsBuckets.get(i);
                 predictionData.add(Double.parseDouble((String)currentPreviousDataPoint.getValue("open")));
                 predictionData.add(Double.parseDouble((String)currentPreviousDataPoint.getValue("high")));
@@ -87,7 +88,29 @@ public class App {
                 predictionData.add(Double.parseDouble((String)currentPreviousDataPoint.getValue("close")));
                 predictionData.add(Double.parseDouble((String)currentPreviousDataPoint.getValue("volume")));
             }
-            System.out.println(predictionData);
+
+            ArrayList<ArrayList<Double>> pvr = modeler.predictionVersusReality(ds, m);
+            for (int i = 0; i < pvr.size(); i++) {
+                System.out.println(pvr.get(i));
+            }
+            ArrayList<Double> w = m.getWeights();
+            Double h = w.get(0);
+            Double l = w.get(0);
+            for (int i = 1; i < w.size(); i++) {
+                if (h < w.get(i)) {
+                    h = w.get(i);
+                }
+                if (l > w.get(i)) {
+                    l = w.get(i);
+                }
+            }
+            System.out.println(w);
+            System.out.println(ds.getFeatureNames());
+            System.out.println(m.getBias());
+            System.out.println(w.size());
+            System.out.println("H: " + h);
+            System.out.println("L: " + l);
+
             // then we can actually make the prediction
             System.out.println(m.predict(predictionData));
             

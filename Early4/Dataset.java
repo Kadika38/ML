@@ -29,4 +29,8 @@ public class Dataset {
     public Integer getNumOfDatapoints() {
         return this.datasets.get(0).size();
     }
+
+    public ArrayList<String> getFeatureNames() {
+        return this.featureNames;
+    }
 }
