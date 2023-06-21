@@ -33,47 +33,8 @@ public class App {
             ArrayList<ArrayList<Double>> data = new ArrayList<ArrayList<Double>>();
             ArrayList<Double> labelData = new ArrayList<Double>();
             ArrayList<String> featureNames = new ArrayList<String>();
-            boolean buildFeatureNameArray = true;
-            for (int i = 0; i < dataPointsAsBuckets.size()-30; i++) {
-                labelData.add(Double.parseDouble((String)dataPointsAsBuckets.get(i).getValue("close")));
-                ArrayList<Double> datapoint = new ArrayList<Double>();
-                for (int j = 1; j < 31; j++) {
-                    JSONBucket current = dataPointsAsBuckets.get(i+j);
-                    datapoint.add(Double.parseDouble((String)current.getValue("open")));
-                    datapoint.add(Double.parseDouble((String)current.getValue("high")));
-                    datapoint.add(Double.parseDouble((String)current.getValue("low")));
-                    datapoint.add(Double.parseDouble((String)current.getValue("close")));
-                    datapoint.add(Double.parseDouble((String)current.getValue("volume")));
-
-                    if (buildFeatureNameArray) {
-                        String num = Integer.toString(j);
-                        featureNames.add("open" + num);
-                        featureNames.add("high" + num);
-                        featureNames.add("low" + num);
-                        featureNames.add("close" + num);
-                        featureNames.add("volume" + num);
-                    }
-                }
-                data.add(datapoint);
-
-                buildFeatureNameArray = false;
-            }
-            // Finally build the Dataset
-            Dataset ds = new Dataset(data, labelData, featureNames);
-
-            // Model the dataset
-            Modeler modeler = new Modeler();
-            Model m = modeler.model(ds, 0.000000000000000001, 100);
-            ArrayList<Double> ltd = new ArrayList<Double>();
-            for (int i = 0; i < 30; i++) {
-                JSONBucket current = dataPointsAsBuckets.get(i);
-                ltd.add(Double.parseDouble((String)current.getValue("open")));
-                ltd.add(Double.parseDouble((String)current.getValue("high")));
-                ltd.add(Double.parseDouble((String)current.getValue("low")));
-                ltd.add(Double.parseDouble((String)current.getValue("close")));
-                ltd.add(Double.parseDouble((String)current.getValue("volume")));
-            }
-            System.out.println(m.predict(ltd));
+            
+            
         } catch (IOException e) {
             System.out.println("Error...lol");
         }
