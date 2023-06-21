@@ -72,8 +72,8 @@ public class Model {
             /* System.out.print("Weights n Bias: ");
             for (int i = 0; i < this.weights.size(); i++) {
                 System.out.print("w" + i + ":" + this.weights.get(i) + " ");
-            } */
-            System.out.println("b:" + this.bias);
+            }
+            System.out.println("b:" + this.bias); */
 
             // compute average loss and return it
             Double averageLoss = 0.0;
