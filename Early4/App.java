@@ -152,6 +152,12 @@ public class App {
                 Double previousDayClose = Double.parseDouble((String)dataPointsAsBuckets.get(i-1).getValue("close"));
                 pdpc.add((currentDayClose / previousDayClose) - 1);
             }
+            data.add(pdpc);
+            
+            // Features 2 and 3: Bollinger Band Relationships
+            // Feature 2: Went above upper bollinger band? yes == 1, no == 0
+            featureNames.add("WentAboveUpperBollingerBand");
+            ArrayList<Double> aubb = new ArrayList<Double>();
             
 
         } catch (IOException e) {
