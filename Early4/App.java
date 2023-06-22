@@ -25,7 +25,7 @@ public class App {
         // take real json data and build a dataset with it
         // then create a model of it
         // then make a prediction with the model
-        int numOfDays = 2;
+        /* int numOfDays = 2;
         try {
             Path filename = Path.of("/home/kadika/Coding/ML/Early4/json.txt");
             String json = Files.readString(filename);
@@ -116,6 +116,32 @@ public class App {
             
         } catch (IOException e) {
             System.out.println("Error...lol");
+        } */
+
+
+        //TESTING3
+        // this time using the data to build other data, such as percent daily change, bollinger band relationships, and RSI relationships
+        // main idea here is to use mostly yes/no data (0 or 1) and small number, as opposed to the earlier test which used raw data that included some large numbers
+        // this will allow for a different label to be used - instead of trying to predict the price at close the next day, the label will simply be whether the daily change was an increase (yes or no, 0 or 1)
+        // hopefully this approaches simplifies things as well as allowing for a more reasonable relationship to be explored between the data and the label
+        try {
+            Path filename = Path.of("/home/kadika/Coding/ML/Early4/json.txt");
+            String json = Files.readString(filename);
+            JSONBucket bucket = new JSONBucket(json);
+            ArrayList<JSONBucket> dataPointsAsBucketsReversed = (ArrayList<JSONBucket>) bucket.getValue("values");
+            // rearrange datapoints to be in chronological order (they are currently in reverse chronological order)
+            ArrayList<JSONBucket> dataPointsAsBuckets = new ArrayList<JSONBucket>();
+            for (int i = dataPointsAsBucketsReversed.size()-1; i >= 0; i--) {
+                dataPointsAsBuckets.add(dataPointsAsBucketsReversed.get(i));
+            }
+            ArrayList<ArrayList<Double>> data = new ArrayList<ArrayList<Double>>();
+            ArrayList<Double> labelData = new ArrayList<Double>();
+            ArrayList<String> featureNames = new ArrayList<String>();
+
+
+
+        } catch (IOException e) {
+            System.out.println("Error... lol");
         }
 
     }
