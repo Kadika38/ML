@@ -199,6 +199,61 @@ public class App {
 
             data.add(aubb);
             data.add(blbb);
+
+            // Features 4 & 5: RSI Relationships
+
+            // Feature 4: RSI above 70? yes == 1, no == 0
+            featureNames.add("RSIAbove70");
+            ArrayList<Double> rsia = new ArrayList<Double>();
+            // Feature 5: RSI below 30? yes == 1, no == 0
+            featureNames.add("RSIBelow30");
+            ArrayList<Double> rsib = new ArrayList<Double>();
+
+            // RSI = 100 - (100 / (1 + RS))
+            // RS = AvgU / AvgD
+            // AvgU = Average of upwards moves in period
+            // AvgD = Average of downward moves in period
+
+            // calculate RSI for each day
+            int rsiPeriod = 14;
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size(); i++) {
+                // calculate AvgU & AvgD
+                Double sumUpMoves = 0.0;
+                Double sumDownMoves = 0.0;
+                for (int j = i; j > i - rsiPeriod; j--) {
+                    Double currentDaysClosingPrice = Double.parseDouble((String)dataPointsAsBuckets.get(j).getValue("close"));
+                    Double previousDaysClosingPrice = Double.parseDouble((String)dataPointsAsBuckets.get(j-1).getValue("close"));
+                    Double cpDif = currentDaysClosingPrice - previousDaysClosingPrice;
+                    if (cpDif > 0.0) {
+                        sumUpMoves += cpDif;
+                    } else if (cpDif < 0.0) {
+                        sumDownMoves += Math.abs(cpDif);
+                    }
+                }
+                Double RSI;
+                if (sumDownMoves != 0.0) {
+                    Double AvgU = sumUpMoves / rsiPeriod;
+                    Double AvgD = sumDownMoves / rsiPeriod;
+                    Double RS = AvgU / AvgD;
+                    RSI = 100.0 - (100.0 / (1.0 + RS));
+                } else {
+                    RSI = 100.0;
+                }
+
+                if (RSI > 70.0) {
+                    rsia.add(1.0);
+                } else {
+                    rsia.add(0.0);
+                }
+                if (RSI < 30.0) {
+                    rsib.add(1.0);
+                } else {
+                    rsib.add(0.0);
+                }
+            }
+
+            data.add(rsia);
+            data.add(rsib);
             
             
 
