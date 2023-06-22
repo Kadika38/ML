@@ -142,7 +142,7 @@ public class App {
 
             // earliestUsableDataNum is necessary since most of the features will require calculations involving one or more previous day's data
             // (can't use first data point since you cant make those calculations, etc.)
-            int earliestUsableDataNum = 1;
+            int earliestUsableDataNum = 20;
             // Feature 1: Percent increase or decrease
             //  = ( Current day closing price / Previous day closing price ) - 1
             featureNames.add("PercentDailyPriceChange");
@@ -156,8 +156,50 @@ public class App {
             
             // Features 2 and 3: Bollinger Band Relationships
             // Feature 2: Went above upper bollinger band? yes == 1, no == 0
+            // Feature 3: Went below lower bollinger band? yes == 1, no == 0
+            int bollingerPeriod = 20;
             featureNames.add("WentAboveUpperBollingerBand");
             ArrayList<Double> aubb = new ArrayList<Double>();
+            featureNames.add("WentBelowLowerBollingerBand");
+            ArrayList<Double> blbb = new ArrayList<Double>();
+
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size(); i++) {
+                // calculate simple moving average
+                Double sma = 0.0;
+                for (int j = bollingerPeriod; j > 0; j--) {
+                    sma += Double.parseDouble((String)dataPointsAsBuckets.get(i-j).getValue("close"));
+                }
+                sma = sma / bollingerPeriod;
+                // calulate standard deviation of last [bollingerPeriod] close prices
+                // sum squared difference between sma and each closing price
+                Double sumSquaredDifferenceCPandSMA = 0.0;
+                for (int j = bollingerPeriod; j > 0; j--) {
+                    sumSquaredDifferenceCPandSMA += Math.pow(Double.parseDouble((String)dataPointsAsBuckets.get(i-j).getValue("close")) - sma, 2);
+                }
+                // divide by [bollingerPeriod] and take the square root
+                Double standardDeviation = sumSquaredDifferenceCPandSMA / bollingerPeriod;
+                standardDeviation = Math.sqrt(standardDeviation);
+
+                Double currentDaysClosingPrice = Double.parseDouble((String)dataPointsAsBuckets.get(i).getValue("close"));
+                Double upperBollinger = sma + (2 * standardDeviation);
+                Double lowerBollinger = sma - (2 * standardDeviation);
+                // calculate Feature2
+                if (currentDaysClosingPrice > upperBollinger) {
+                    aubb.add(1.0);
+                } else {
+                    aubb.add(0.0);
+                }
+                // calculate Feature3
+                if (currentDaysClosingPrice < lowerBollinger) {
+                    blbb.add(1.0);
+                } else {
+                    blbb.add(0.0);
+                }
+            }
+
+            data.add(aubb);
+            data.add(blbb);
+            
             
 
         } catch (IOException e) {
