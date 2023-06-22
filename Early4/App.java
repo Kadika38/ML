@@ -138,7 +138,21 @@ public class App {
             ArrayList<Double> labelData = new ArrayList<Double>();
             ArrayList<String> featureNames = new ArrayList<String>();
 
+            // this time we will piece by piece build each feature's dataset using the raw data
 
+            // earliestUsableDataNum is necessary since most of the features will require calculations involving one or more previous day's data
+            // (can't use first data point since you cant make those calculations, etc.)
+            int earliestUsableDataNum = 1;
+            // Feature 1: Percent increase or decrease
+            //  = ( Current day closing price / Previous day closing price ) - 1
+            featureNames.add("PercentDailyPriceChange");
+            ArrayList<Double> pdpc = new ArrayList<Double>();
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size(); i++) {
+                Double currentDayClose = Double.parseDouble((String)dataPointsAsBuckets.get(i).getValue("close"));
+                Double previousDayClose = Double.parseDouble((String)dataPointsAsBuckets.get(i-1).getValue("close"));
+                pdpc.add((currentDayClose / previousDayClose) - 1);
+            }
+            
 
         } catch (IOException e) {
             System.out.println("Error... lol");
