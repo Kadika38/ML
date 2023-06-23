@@ -1,6 +1,7 @@
 package Early4;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Model {
     private ArrayList<Double> weights;
@@ -14,6 +15,14 @@ public class Model {
         }
         this.bias = 0.0;
         this.dataset = dataset;
+    }
+
+    public void setWeightsAndBiasRandom() {
+        Random random = new Random();
+        for (int i = 0; i < this.weights.size(); i++) {
+            this.weights.set(i, random.nextDouble());
+        }
+        this.bias = random.nextDouble();
     }
 
     public ArrayList<Double> getWeights() {

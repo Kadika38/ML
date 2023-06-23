@@ -125,7 +125,7 @@ public class App {
         // this will allow for a different label to be used - instead of trying to predict the price at close the next day, the label will simply be whether the daily change was an increase (yes or no, 0 or 1)
         // hopefully this approaches simplifies things as well as allowing for a more reasonable relationship to be explored between the data and the label
         try {
-            Path filename = Path.of("/home/kadika/Coding/ML/Early4/json.txt");
+            Path filename = Path.of("/home/kadika/Coding/ML/Early4/amcjson.txt");
             String json = Files.readString(filename);
             JSONBucket bucket = new JSONBucket(json);
             ArrayList<JSONBucket> dataPointsAsBucketsReversed = (ArrayList<JSONBucket>) bucket.getValue("values");
@@ -273,34 +273,38 @@ public class App {
 
             Dataset ds = new Dataset(data, labelData, featureNames);
             Modeler modeler = new Modeler();
-            Model m = modeler.model(ds, 0.1, 1000);
-
-            System.out.println(m.getWeights());
-            System.out.println(m.getBias());
-
-            ArrayList<ArrayList<Double>> pvr = modeler.predictionVersusReality(ds, m);
-            ArrayList<Boolean> odds = new ArrayList<Boolean>();
-            for (int i = 0; i < pvr.size(); i++) {
-                Double reality = pvr.get(i).get(0);
-                Double prediction = pvr.get(i).get(1);
-                if (reality == 1.0 && prediction > 0.5) {
-                    odds.add(true);
-                } else if (reality == 1.0 && prediction < 0.5) {
-                    odds.add(false);
-                } else if (reality == 0.0 && prediction > 0.5) {
-                    odds.add(false);
-                } else if (reality == 0.0 && prediction < 0.5) {
-                    odds.add(true);
+            
+            int bestTotal = 0;
+            int oddsize = 0;
+            for (int n = 0; n < 1000; n++) {
+                Model m = modeler.model(ds, 0.1, 100, true);
+                ArrayList<ArrayList<Double>> pvr = modeler.predictionVersusReality(ds, m);
+                ArrayList<Boolean> odds = new ArrayList<Boolean>();
+                for (int i = 0; i < pvr.size(); i++) {
+                    Double reality = pvr.get(i).get(0);
+                    Double prediction = pvr.get(i).get(1);
+                    if (reality == 1.0 && prediction > 0.5) {
+                        odds.add(true);
+                    } else if (reality == 1.0 && prediction < 0.5) {
+                        odds.add(false);
+                    } else if (reality == 0.0 && prediction > 0.5) {
+                        odds.add(false);
+                    } else if (reality == 0.0 && prediction < 0.5) {
+                        odds.add(true);
+                    }
                 }
-            }
-            int total = 0;
-            for (int i = 0; i < odds.size(); i++) {
-                if (odds.get(i)) {
-                    total++;
+                int total = 0;
+                for (int i = 0; i < odds.size(); i++) {
+                    if (odds.get(i)) {
+                        total++;
+                    }
                 }
+                if (total > bestTotal) {
+                    bestTotal = total;
+                }
+                oddsize = odds.size();
             }
-            System.out.println(total);
-            System.out.println(odds.size());
+            System.out.println("Best model: " + bestTotal + " / " + oddsize);
             
             
 

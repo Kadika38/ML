@@ -8,9 +8,13 @@ public class Modeler {
 
     }
 
-    public Model model(Dataset dataset, Double lr, int numOfEpochs) {
+    public Model model(Dataset dataset, Double lr, int numOfEpochs, boolean randomWeightsAndBias) {
         // initialize the model
         Model model = new Model(dataset);
+
+        if (randomWeightsAndBias) {
+            model.setWeightsAndBiasRandom();
+        }
 
         Double averageLossPrevious = model.linearRegression(lr);
         Double averageLossNew = model.linearRegression(lr);
