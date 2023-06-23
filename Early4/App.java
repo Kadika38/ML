@@ -147,7 +147,7 @@ public class App {
             //  = ( Current day closing price / Previous day closing price ) - 1
             featureNames.add("PercentDailyPriceChange");
             ArrayList<Double> pdpc = new ArrayList<Double>();
-            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size(); i++) {
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size()-1; i++) {
                 Double currentDayClose = Double.parseDouble((String)dataPointsAsBuckets.get(i).getValue("close"));
                 Double previousDayClose = Double.parseDouble((String)dataPointsAsBuckets.get(i-1).getValue("close"));
                 pdpc.add((currentDayClose / previousDayClose) - 1);
@@ -163,7 +163,7 @@ public class App {
             featureNames.add("WentBelowLowerBollingerBand");
             ArrayList<Double> blbb = new ArrayList<Double>();
 
-            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size(); i++) {
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size()-1; i++) {
                 // calculate simple moving average
                 Double sma = 0.0;
                 for (int j = bollingerPeriod; j > 0; j--) {
@@ -216,7 +216,7 @@ public class App {
 
             // calculate RSI for each day
             int rsiPeriod = 14;
-            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size(); i++) {
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size()-1; i++) {
                 // calculate AvgU & AvgD
                 Double sumUpMoves = 0.0;
                 Double sumDownMoves = 0.0;
@@ -254,6 +254,53 @@ public class App {
 
             data.add(rsia);
             data.add(rsib);
+
+            // Calculate labels
+            int check = 0;
+            for (int i = earliestUsableDataNum; i < dataPointsAsBuckets.size()-1; i++) {
+                Double currentDay = Double.parseDouble((String)dataPointsAsBuckets.get(i).getValue("close"));
+                Double nextDay = Double.parseDouble((String)dataPointsAsBuckets.get(i+1).getValue("close"));
+                if (currentDay > nextDay) {
+                    labelData.add(0.0);
+                    check++;
+                } else if (currentDay < nextDay) {
+                    labelData.add(1.0);
+                    check++;
+                } else if (currentDay.equals(nextDay)) {
+                    labelData.add(0.5);
+                }
+            }
+
+            Dataset ds = new Dataset(data, labelData, featureNames);
+            Modeler modeler = new Modeler();
+            Model m = modeler.model(ds, 0.1, 1000);
+
+            System.out.println(m.getWeights());
+            System.out.println(m.getBias());
+
+            ArrayList<ArrayList<Double>> pvr = modeler.predictionVersusReality(ds, m);
+            ArrayList<Boolean> odds = new ArrayList<Boolean>();
+            for (int i = 0; i < pvr.size(); i++) {
+                Double reality = pvr.get(i).get(0);
+                Double prediction = pvr.get(i).get(1);
+                if (reality == 1.0 && prediction > 0.5) {
+                    odds.add(true);
+                } else if (reality == 1.0 && prediction < 0.5) {
+                    odds.add(false);
+                } else if (reality == 0.0 && prediction > 0.5) {
+                    odds.add(false);
+                } else if (reality == 0.0 && prediction < 0.5) {
+                    odds.add(true);
+                }
+            }
+            int total = 0;
+            for (int i = 0; i < odds.size(); i++) {
+                if (odds.get(i)) {
+                    total++;
+                }
+            }
+            System.out.println(total);
+            System.out.println(odds.size());
             
             
 
