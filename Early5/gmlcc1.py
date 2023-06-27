@@ -1,9 +1,9 @@
+# copied from link below, slightly modified by me
+# https://colab.research.google.com/github/google/eng-edu/blob/main/ml/cc/exercises/linear_regression_with_synthetic_data.ipynb?utm_source=mlcc&utm_campaign=colab-external&utm_medium=referral&utm_content=linear_regression_synthetic_tf2-colab&hl=en
+
 import pandas as pd
 import tensorflow as tf
 from matplotlib import pyplot as plt
-
-# THIS IS DIRECTLY COPIED FROM THE GOOGLE MACHINE LEARNING CRASH COURSE
-# I'm simply using this for learning - just figuring out how tf works for now
 
 #@title Define the functions that build and train a model
 def build_model(my_learning_rate):
