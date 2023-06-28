@@ -1,5 +1,7 @@
 package Sidequests;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,7 +75,7 @@ public class ConceptDF {
         return avDif;
     }
 
-    private void makePrediction(ArrayList<ArrayList<Double>> vectorPattern) {
+    private Double makePrediction(ArrayList<ArrayList<Double>> vectorPattern) {
         Integer mostSimilarVectorsIterator = 0;
         Double lowestAverageVectorDifference = null;
 
@@ -89,23 +91,104 @@ public class ConceptDF {
             }
         }
 
+        // Print out and return the predicted daily price change percentage
         JSONBucket currentDay = this.dataPointsAsBuckets.get(mostSimilarVectorsIterator+1);
         JSONBucket nextDay = this.dataPointsAsBuckets.get(mostSimilarVectorsIterator+2);
         Double currentDayCP = Double.parseDouble((String)currentDay.getValue("close"));
         Double nextDayCP = Double.parseDouble((String)nextDay.getValue("close"));
-        System.out.println(100 * (nextDayCP - currentDayCP) / currentDayCP);
+        Double prediction = 100 * ((nextDayCP - currentDayCP) / currentDayCP);
+        System.out.println(prediction);
+        return prediction;
+    }
+
+    private Double makePredictionForTesting(ArrayList<ArrayList<Double>> vectorPattern, Integer cutoff) {
+        Integer mostSimilarVectorsIterator = 0;
+        Double lowestAverageVectorDifference = null;
+
+        // compare vectorPattern to all vector patterns
+        for (int i = vectorPattern.size()-1; i < cutoff; i++) {
+            ArrayList<ArrayList<Double>> vectorsSlice = new ArrayList<ArrayList<Double>>();
+            for (int j = i - vectorPattern.size()+1; j < i+1; j++) {
+                vectorsSlice.add(this.vectors.get(j));
+            }
+            if (lowestAverageVectorDifference == null || averageVectorDifference(vectorPattern, vectorsSlice) < lowestAverageVectorDifference) {
+                lowestAverageVectorDifference = averageVectorDifference(vectorPattern, vectorsSlice);
+                mostSimilarVectorsIterator = i;
+            }
+        }
+
+        // Return the predicted daily price change percentage
+        JSONBucket currentDay = this.dataPointsAsBuckets.get(mostSimilarVectorsIterator+1);
+        JSONBucket nextDay = this.dataPointsAsBuckets.get(mostSimilarVectorsIterator+2);
+        Double currentDayCP = Double.parseDouble((String)currentDay.getValue("close"));
+        Double nextDayCP = Double.parseDouble((String)nextDay.getValue("close"));
+        Double prediction = 100 * ((nextDayCP - currentDayCP) / currentDayCP);
+        return prediction;
+    }
+
+    private Double getVectorDifference(ArrayList<ArrayList<Double>> vectorPattern, Integer cutoff) {
+        Double lowestAverageVectorDifference = null;
+
+        // compare vectorPattern to all vector patterns
+        for (int i = vectorPattern.size()-1; i < cutoff; i++) {
+            ArrayList<ArrayList<Double>> vectorsSlice = new ArrayList<ArrayList<Double>>();
+            for (int j = i - vectorPattern.size()+1; j < i+1; j++) {
+                vectorsSlice.add(this.vectors.get(j));
+            }
+            if (lowestAverageVectorDifference == null || averageVectorDifference(vectorPattern, vectorsSlice) < lowestAverageVectorDifference) {
+                lowestAverageVectorDifference = averageVectorDifference(vectorPattern, vectorsSlice);
+            }
+        }
+
+        return lowestAverageVectorDifference;
+    }
+
+    private void testPredictionQuality(Integer patternSize) {
+        ArrayList<ArrayList<Double>> realVSprediction = new ArrayList<ArrayList<Double>>();
+        for (int i = this.vectors.size()-1; i >= patternSize; i--) {
+            // i+1 is at the day we want to predict
+            JSONBucket nextDay = this.dataPointsAsBuckets.get(i+1);
+            JSONBucket currentDay = this.dataPointsAsBuckets.get(i);
+            Double nextDayCP = Double.parseDouble((String)nextDay.getValue("close"));
+            Double currentDayCP = Double.parseDouble((String)currentDay.getValue("close"));
+            Double realCPP = 100 * ((nextDayCP - currentDayCP) / currentDayCP);
+
+            ArrayList<ArrayList<Double>> pattern = new ArrayList<ArrayList<Double>>();
+            for (int j = i - patternSize + 1; j <= i; j++) {
+                pattern.add(this.vectors.get(j));
+            }
+
+            Double prediction = this.makePredictionForTesting(pattern, i);
+            Double vectorDifference = this.getVectorDifference(pattern, i);
+
+            ArrayList<Double> thisComparison = new ArrayList<Double>();
+            thisComparison.add(realCPP);
+            thisComparison.add(prediction);
+            thisComparison.add(vectorDifference);
+            realVSprediction.add(thisComparison);
+        }
+
+        try {
+            FileWriter myWriter = new FileWriter("Sidequests/rvp" + patternSize + ".csv");
+            myWriter.write("real,prediction,vectorDif");
+            for (int i = 0; i < realVSprediction.size(); i++) {
+                myWriter.write("\n" + Double.toString(realVSprediction.get(i).get(0)) + "," + Double.toString(realVSprediction.get(i).get(1)) + "," + Double.toString(realVSprediction.get(i).get(2)));
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error while writing to file");
+        }
     }
 
     public static void main(String[] args) throws IOException {
         ArrayList<ArrayList<Double>> testVectorPattern = new ArrayList<ArrayList<Double>>();
-        Path filename = Path.of("/home/kadika/Coding/ML/Sidequests/newaapljson.txt");
-        String json = Files.readString(filename);
-        JSONBucket bucket = new JSONBucket(json);
-        // build a test dataset to use
+        
 
         try {
             ConceptDF cdf = new ConceptDF();
-            cdf.makePrediction(testVectorPattern);
+            for (int i = 1; i < 15; i++) {
+                cdf.testPredictionQuality(i);
+            }
         } catch (IOException e) {
             System.out.println("Lmao it errored");
         }
