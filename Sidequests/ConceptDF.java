@@ -12,9 +12,11 @@ import Early4.JSONBucket;
 public class ConceptDF {
     ArrayList<JSONBucket> dataPointsAsBuckets;
     ArrayList<ArrayList<Double>> vectors;
+    String symbol;
 
-    ConceptDF() throws IOException {
-        Path filename = Path.of("/home/kadika/Coding/ML/Early4/aapljson.txt");
+    ConceptDF(String symbol) throws IOException {
+        this.symbol = symbol;
+        Path filename = Path.of("/home/kadika/Coding/ML/Sidequests/jsons/" + this.symbol + "json.txt");
         String json = Files.readString(filename);
         JSONBucket bucket = new JSONBucket(json);
         ArrayList<JSONBucket> dataPointsAsBucketsReversed = (ArrayList<JSONBucket>) bucket.getValue("values");
@@ -80,7 +82,7 @@ public class ConceptDF {
         Double lowestAverageVectorDifference = null;
 
         // compare vectorPattern to all vector patterns
-        for (int i = vectorPattern.size()-1; i < this.vectors.size(); i++) {
+        for (int i = vectorPattern.size()-1; i < this.vectors.size()-1; i++) {
             ArrayList<ArrayList<Double>> vectorsSlice = new ArrayList<ArrayList<Double>>();
             for (int j = i - vectorPattern.size()+1; j < i+1; j++) {
                 vectorsSlice.add(this.vectors.get(j));
@@ -169,7 +171,7 @@ public class ConceptDF {
         }
 
         try {
-            FileWriter myWriter = new FileWriter("Sidequests/rvp" + patternSize + ".csv");
+            FileWriter myWriter = new FileWriter("Sidequests/rvps/" + this.symbol + "rvp" + patternSize + ".csv");
             myWriter.write("real,prediction,vectorDif");
             for (int i = 0; i < realVSprediction.size(); i++) {
                 myWriter.write("\n" + Double.toString(realVSprediction.get(i).get(0)) + "," + Double.toString(realVSprediction.get(i).get(1)) + "," + Double.toString(realVSprediction.get(i).get(2)));
@@ -180,15 +182,20 @@ public class ConceptDF {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        ArrayList<ArrayList<Double>> testVectorPattern = new ArrayList<ArrayList<Double>>();
-        
+    private ArrayList<ArrayList<Double>> getMostRecentPattern(int patternSize) {
+        ArrayList<ArrayList<Double>> pattern = new ArrayList<ArrayList<Double>>();
+        for (int i = this.vectors.size() - patternSize; i < this.vectors.size(); i++) {
+            pattern.add(this.vectors.get(i));
+        }
+        return pattern;
+    }
+
+    public static void main(String[] args) throws IOException {        
 
         try {
-            ConceptDF cdf = new ConceptDF();
-            for (int i = 1; i < 15; i++) {
-                cdf.testPredictionQuality(i);
-            }
+            ConceptDF cdf = new ConceptDF("sbux");
+            cdf.testPredictionQuality(2);
+            cdf.makePrediction(cdf.getMostRecentPattern(2));
         } catch (IOException e) {
             System.out.println("Lmao it errored");
         }

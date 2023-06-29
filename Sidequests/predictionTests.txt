@@ -1,0 +1,51 @@
+Keeping track of predictions made for 10 stocks over a period of currentDayClose
+
+AAPL:   
+        Jun29
+        P: -1.9593% ($189.28 -> $185.57) (std: 2.4243%) (range%: -4.3836%, 0.4650%) (range$: $180.98, $190.16)
+        R:
+
+SBUX:
+        Jun29
+        P: -0.2685% ()
+        R:
+
+BA:
+        Jun29
+        P:
+        R:
+
+CRSP:
+        Jun29
+        P:
+        R:
+
+LUV:
+        Jun29
+        P:
+        R:
+
+AMD:
+        Jun29
+        P:
+        R:
+
+ADPT:
+        Jun29
+        P:
+        R:
+
+SPCE:
+        Jun29
+        P:
+        R:
+
+AMC:
+        Jun29
+        P:
+        R:
+
+TSLA:
+        Jun29
+        P:
+        R:
