@@ -99,7 +99,7 @@ public class ConceptDF {
         Double currentDayCP = Double.parseDouble((String)currentDay.getValue("close"));
         Double nextDayCP = Double.parseDouble((String)nextDay.getValue("close"));
         Double prediction = 100 * ((nextDayCP - currentDayCP) / currentDayCP);
-        System.out.println(prediction);
+        //System.out.println(prediction);
         return prediction;
     }
 
@@ -147,21 +147,22 @@ public class ConceptDF {
 
     private void testPredictionQuality(Integer patternSize) {
         ArrayList<ArrayList<Double>> realVSprediction = new ArrayList<ArrayList<Double>>();
-        for (int i = this.vectors.size()-1; i >= patternSize; i--) {
+
+        for (int i = this.vectors.size(); i > patternSize+1; i--) {
             // i+1 is at the day we want to predict
-            JSONBucket nextDay = this.dataPointsAsBuckets.get(i+1);
             JSONBucket currentDay = this.dataPointsAsBuckets.get(i);
-            Double nextDayCP = Double.parseDouble((String)nextDay.getValue("close"));
+            JSONBucket previousDay = this.dataPointsAsBuckets.get(i-1);
             Double currentDayCP = Double.parseDouble((String)currentDay.getValue("close"));
-            Double realCPP = 100 * ((nextDayCP - currentDayCP) / currentDayCP);
+            Double previousDayCP = Double.parseDouble((String)previousDay.getValue("close"));
+            Double realCPP = 100 * ((currentDayCP - previousDayCP) / previousDayCP);
 
             ArrayList<ArrayList<Double>> pattern = new ArrayList<ArrayList<Double>>();
-            for (int j = i - patternSize + 1; j <= i; j++) {
+            for (int j = i - patternSize -1; j < i-1; j++) {
                 pattern.add(this.vectors.get(j));
             }
 
-            Double prediction = this.makePredictionForTesting(pattern, i);
-            Double vectorDifference = this.getVectorDifference(pattern, i);
+            Double prediction = this.makePredictionForTesting(pattern, i-2);
+            Double vectorDifference = this.getVectorDifference(pattern, i-2);
 
             ArrayList<Double> thisComparison = new ArrayList<Double>();
             thisComparison.add(realCPP);
@@ -193,9 +194,45 @@ public class ConceptDF {
     public static void main(String[] args) throws IOException {        
 
         try {
-            ConceptDF cdf = new ConceptDF("sbux");
-            cdf.testPredictionQuality(2);
-            cdf.makePrediction(cdf.getMostRecentPattern(2));
+            ConceptDF aapl = new ConceptDF("aapl");
+            aapl.testPredictionQuality(2);
+            System.out.println("aapl Prediction: " + aapl.makePrediction(aapl.getMostRecentPattern(2)));
+            
+            ConceptDF adpt = new ConceptDF("adpt");
+            adpt.testPredictionQuality(2);
+            System.out.println("adpt Prediction: " + adpt.makePrediction(adpt.getMostRecentPattern(2)));
+
+            ConceptDF amc = new ConceptDF("amc");
+            amc.testPredictionQuality(2);
+            System.out.println("amc Prediction: " + amc.makePrediction(amc.getMostRecentPattern(2)));
+
+            ConceptDF amd = new ConceptDF("amd");
+            amd.testPredictionQuality(2);
+            System.out.println("amd Prediction: " + amd.makePrediction(amd.getMostRecentPattern(2)));
+
+            ConceptDF ba = new ConceptDF("ba");
+            ba.testPredictionQuality(2);
+            System.out.println("ba Prediction: " + ba.makePrediction(ba.getMostRecentPattern(2)));
+
+            ConceptDF crsp = new ConceptDF("crsp");
+            crsp.testPredictionQuality(2);
+            System.out.println("crsp Prediction: " + crsp.makePrediction(crsp.getMostRecentPattern(2)));
+
+            ConceptDF luv = new ConceptDF("luv");
+            luv.testPredictionQuality(2);
+            System.out.println("luv Prediction: " + luv.makePrediction(luv.getMostRecentPattern(2)));
+
+            ConceptDF sbux = new ConceptDF("sbux");
+            sbux.testPredictionQuality(2);
+            System.out.println("sbux Prediction: " + sbux.makePrediction(sbux.getMostRecentPattern(2)));
+
+            ConceptDF spce = new ConceptDF("spce");
+            spce.testPredictionQuality(2);
+            System.out.println("spce Prediction: " + spce.makePrediction(spce.getMostRecentPattern(2)));
+
+            ConceptDF tsla = new ConceptDF("tsla");
+            tsla.testPredictionQuality(2);
+            System.out.println("tsla Prediction: " + tsla.makePrediction(tsla.getMostRecentPattern(2)));
         } catch (IOException e) {
             System.out.println("Lmao it errored");
         }

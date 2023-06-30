@@ -1,2 +1,2 @@
 todo:
-    - currently the makePrediction function isn't making a prediction for the final day in the data
+    - make predictionsTests more ledgible and make a more automated system for building that file

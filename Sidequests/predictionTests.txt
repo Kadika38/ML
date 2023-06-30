@@ -1,51 +1,24 @@
-Keeping track of predictions made for 10 stocks over a period of currentDayClose
+stds
+aapl: 2.4241427406057725
+adpt: 6.630385636234517
+amc: 9.59521748515106
+amd: 4.69537875222526
+ba: 3.519371910334765
+crsp: 5.626614478918758
+luv: 3.0378074346709765
+sbux: 2.6203875943960573
+spce: 8.747215714920554
+tsla: 5.27564673134479
 
-AAPL:   
-        Jun29
-        P: -1.9593% ($189.28 -> $185.57) (std: 2.4243%) (range%: -4.3836%, 0.4650%) (range$: $180.98, $190.16)
-        R:
+Jun30
 
-SBUX:
-        Jun29
-        P: -0.2685% ()
-        R:
-
-BA:
-        Jun29
-        P:
-        R:
-
-CRSP:
-        Jun29
-        P:
-        R:
-
-LUV:
-        Jun29
-        P:
-        R:
-
-AMD:
-        Jun29
-        P:
-        R:
-
-ADPT:
-        Jun29
-        P:
-        R:
-
-SPCE:
-        Jun29
-        P:
-        R:
-
-AMC:
-        Jun29
-        P:
-        R:
-
-TSLA:
-        Jun29
-        P:
-        R:
+aapl Prediction: -1.0549959161448292
+adpt Prediction: -4.345255690215781
+amc Prediction: -4.394175767030675
+amd Prediction: -0.12295469592358806
+ba Prediction: 1.4056441946167624
+crsp Prediction: -3.467314487632509
+luv Prediction: -0.0814332247556986
+sbux Prediction: 0.9547450830628224
+spce Prediction: -1.0183299389002
+tsla Prediction: -6.630298769088197
