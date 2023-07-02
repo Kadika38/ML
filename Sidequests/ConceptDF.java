@@ -196,43 +196,43 @@ public class ConceptDF {
         try {
             ConceptDF aapl = new ConceptDF("aapl");
             aapl.testPredictionQuality(2);
-            System.out.println("aapl Prediction: " + aapl.makePrediction(aapl.getMostRecentPattern(2)));
+            System.out.println("aapl Prediction: " + aapl.makePrediction(aapl.getMostRecentPattern(2)) + ", VectorDif: " + aapl.getVectorDifference(aapl.getMostRecentPattern(2), aapl.vectors.size()-1));
             
             ConceptDF adpt = new ConceptDF("adpt");
             adpt.testPredictionQuality(2);
-            System.out.println("adpt Prediction: " + adpt.makePrediction(adpt.getMostRecentPattern(2)));
+            System.out.println("adpt Prediction: " + adpt.makePrediction(adpt.getMostRecentPattern(2)) + ", VectorDif: " + adpt.getVectorDifference(adpt.getMostRecentPattern(2), adpt.vectors.size()-1));
 
             ConceptDF amc = new ConceptDF("amc");
             amc.testPredictionQuality(2);
-            System.out.println("amc Prediction: " + amc.makePrediction(amc.getMostRecentPattern(2)));
+            System.out.println("amc Prediction: " + amc.makePrediction(amc.getMostRecentPattern(2)) + ", VectorDif: " + amc.getVectorDifference(amc.getMostRecentPattern(2), amc.vectors.size()-1));
 
             ConceptDF amd = new ConceptDF("amd");
             amd.testPredictionQuality(2);
-            System.out.println("amd Prediction: " + amd.makePrediction(amd.getMostRecentPattern(2)));
+            System.out.println("amd Prediction: " + amd.makePrediction(amd.getMostRecentPattern(2)) + ", VectorDif: " + amd.getVectorDifference(amd.getMostRecentPattern(2), amd.vectors.size()-1));
 
             ConceptDF ba = new ConceptDF("ba");
             ba.testPredictionQuality(2);
-            System.out.println("ba Prediction: " + ba.makePrediction(ba.getMostRecentPattern(2)));
+            System.out.println("ba Prediction: " + ba.makePrediction(ba.getMostRecentPattern(2)) + ", VectorDif: " + ba.getVectorDifference(ba.getMostRecentPattern(2), ba.vectors.size()-1));
 
             ConceptDF crsp = new ConceptDF("crsp");
             crsp.testPredictionQuality(2);
-            System.out.println("crsp Prediction: " + crsp.makePrediction(crsp.getMostRecentPattern(2)));
+            System.out.println("crsp Prediction: " + crsp.makePrediction(crsp.getMostRecentPattern(2)) + ", VectorDif: " + crsp.getVectorDifference(crsp.getMostRecentPattern(2), crsp.vectors.size()-1));
 
             ConceptDF luv = new ConceptDF("luv");
             luv.testPredictionQuality(2);
-            System.out.println("luv Prediction: " + luv.makePrediction(luv.getMostRecentPattern(2)));
+            System.out.println("luv Prediction: " + luv.makePrediction(luv.getMostRecentPattern(2)) + ", VectorDif: " + luv.getVectorDifference(luv.getMostRecentPattern(2), luv.vectors.size()-1));
 
             ConceptDF sbux = new ConceptDF("sbux");
             sbux.testPredictionQuality(2);
-            System.out.println("sbux Prediction: " + sbux.makePrediction(sbux.getMostRecentPattern(2)));
+            System.out.println("sbux Prediction: " + sbux.makePrediction(sbux.getMostRecentPattern(2)) + ", VectorDif: " + sbux.getVectorDifference(sbux.getMostRecentPattern(2), sbux.vectors.size()-1));
 
             ConceptDF spce = new ConceptDF("spce");
             spce.testPredictionQuality(2);
-            System.out.println("spce Prediction: " + spce.makePrediction(spce.getMostRecentPattern(2)));
+            System.out.println("spce Prediction: " + spce.makePrediction(spce.getMostRecentPattern(2)) + ", VectorDif: " + spce.getVectorDifference(spce.getMostRecentPattern(2), spce.vectors.size()-1));
 
             ConceptDF tsla = new ConceptDF("tsla");
             tsla.testPredictionQuality(2);
-            System.out.println("tsla Prediction: " + tsla.makePrediction(tsla.getMostRecentPattern(2)));
+            System.out.println("tsla Prediction: " + tsla.makePrediction(tsla.getMostRecentPattern(2)) + ", VectorDif: " + tsla.getVectorDifference(tsla.getMostRecentPattern(2), tsla.vectors.size()-1));
         } catch (IOException e) {
             System.out.println("Lmao it errored");
         }

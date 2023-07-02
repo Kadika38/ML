@@ -1,0 +1,140 @@
+Early Prediction Analysis 6-30-23
+
+aapl
+Prediction: -1.05%
+Prediction Difference Mean: -0.08%
+Prediction Difference Std: 1 = 1.64%, 2 = 3.29%
+Adjusted Prediction: -1.13%
+Prediction 1 Std Range: (-2.77%, 0.51%)
+Vector Difference: 0.05747
+Vector Difference Mean: 0.2246
+Vector Difference Std: 1 = 0.2823, 2 = 0.5647
+Real: 2.22%
+Analysis:   
+Verdict:    
+
+
+adpt
+Prediction: -4.34%
+Prediction Difference Mean: -0.42%
+Prediction Difference Std: 1 = 4.58%, 2 = 9.17%
+Adjusted Prediction: -4.76%
+Prediction 1 Std Range: (-9.34%, -0.18%)
+Vector Difference: 0.1354
+Vector Difference Mean: 0.6082
+Vector Difference Std: 1 = 0.7415, 2 = 1.4831
+Real: -1.76%
+Analysis:   
+Verdict:    
+
+
+amc
+Prediction: -4.39%
+Prediction Difference Mean: 0.26%
+Prediction Difference Std: 1 = 7.04%, 2 = 14.09%
+Adjusted Prediction: -4.13%
+Prediction 1 Std Range: (-11.17%, 2.91%)
+Vector Difference: 0.5294
+Vector Difference Mean: 0.8707
+Vector Difference Std: 1 = 1.5079, 2 = 3.01588
+Real: -0.57%
+Analysis:   
+Verdict:    
+
+
+amd
+Prediction: -0.12%
+Prediction Difference Mean: 0.13%
+Prediction Difference Std: 1 = 3.27%, 2 = 6.55%
+Adjusted Prediction: 0.01%
+Prediction 1 Std Range: (-3.26%, 3.28%)
+Vector Difference: 0.1322
+Vector Difference Mean: 0.4317
+Vector Difference Std: 1 = 0.5558, 2 = 1.1117
+Real: 2.36%
+Analysis:   
+Verdict:    
+
+
+ba
+Prediction: 1.40%
+Prediction Difference Mean: 0.04%
+Prediction Difference Std: 1 = 2.45%, 2 = 4.90%
+Adjusted Prediction: 1.44%
+Prediction 1 Std Range: (-1.01%, 3.89%)
+Vector Difference: 0.0574
+Vector Difference Mean: 0.3175
+Vector Difference Std: 1 = 0.4005, 2 = 0.8010
+Real: -0.32%
+Analysis:   
+Verdict:    
+
+
+crsp
+Prediction: -3.46%
+Prediction Difference Mean: -0.11%
+Prediction Difference Std: 1 = 3.77%, 2 = 7.54%
+Adjusted Prediction: -3.57%
+Prediction 1 Std Range: (-7.34%, 0.20%)
+Vector Difference: 0.1887
+Vector Difference Mean: 0.4985
+Vector Difference Std: 1 = 0.5965, 2 = 1.1930
+Real: -1.51%
+Analysis:   
+Verdict:    
+
+
+luv
+Prediction: -0.08%
+Prediction Difference Mean: -0.22%
+Prediction Difference Std: 1 = 2.14%, 2 = 4.29%
+Adjusted Prediction: -0.30%
+Prediction 1 Std Range: (-2.44%, 1.84%)
+Vector Difference: 0.1399
+Vector Difference Mean: 0.2795
+Vector Difference Std: 1 = 0.3659, 2 = 0.7318
+Real: 0.70%
+Analysis:   
+Verdict:    
+
+
+sbux
+Prediction: 0.95%
+Prediction Difference Mean: 0.01%
+Prediction Difference Std: 1 = 1.80%, 2 = 3.61%
+Adjusted Prediction: 0.96%
+Prediction 1 Std Range: (-0.84%, 2.76%)
+Vector Difference: 0.0559
+Vector Difference Mean: 0.2464
+Vector Difference Std: 1 = 0.3947, 2 = 0.7894
+Real: 0.35%
+Analysis:   
+Verdict:    
+
+
+spce
+Prediction: -1.01%
+Prediction Difference Mean: 0.58%
+Prediction Difference Std: 1 = 6.74%, 2 = 13.49%
+Adjusted Prediction: -0.43
+Prediction 1 Std Range: (-7.17%, 6.31%)
+Vector Difference: 1.4572
+Vector Difference Mean: 0.7855
+Vector Difference Std: 1 = 1.4265, 2 = 2.8530
+Real: -8.16%
+Analysis:   
+Verdict:    
+
+
+tsla
+Prediction: -6.63%
+Prediction Difference Mean: 0.28%
+Prediction Difference Std: 1 = 3.55%, 2 = 7.10%
+Adjusted Prediction: -6.35%
+Prediction 1 Std Range: (-9.90%, -2.8%)
+Vector Difference: 0.1169
+Vector Difference Mean: 0.4564
+Vector Difference Std: 1 = 0.5863, 2 = 1.1727
+Real: 1.62%
+Analysis:   
+Verdict:    
