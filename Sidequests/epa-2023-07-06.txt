@@ -1,0 +1,91 @@
+Early Prediction Analysis 2023-07-06
+
+AAPL:
+Prediction: -1.92%
+Prediction Difference Mean: -0.03%
+Prediction Diferrence Std: 2.85%
+Adjusted Prediction: -1.95%
+Prediction 1Std Range: (-4.8%, 0.9%)
+Vector Difference: 0.0213
+Vector Difference Mean: 0.2132
+
+ADPT:
+Prediction: 0.46%
+Prediction Difference Mean: -0.24%
+Prediction Diferrence Std: 6.74%
+Adjusted Prediction: 0.22000000000000003%
+Prediction 1Std Range: (-6.52%, 6.96%)
+Vector Difference: 0.2281
+Vector Difference Mean: 0.4573
+
+AMC:
+Prediction: -0.62%
+Prediction Difference Mean: 0.43%
+Prediction Diferrence Std: 15.35%
+Adjusted Prediction: -0.19%
+Prediction 1Std Range: (-15.54%, 15.16%)
+Vector Difference: 0.1337
+Vector Difference Mean: 1.1158
+
+AMD:
+Prediction: 1.15%
+Prediction Difference Mean: 0.06%
+Prediction Diferrence Std: 4.81%
+Adjusted Prediction: 1.21%
+Prediction 1Std Range: (-3.6%, 6.02%)
+Vector Difference: 0.0275
+Vector Difference Mean: 0.3414
+
+BA:
+Prediction: 1.41%
+Prediction Difference Mean: -0.0%
+Prediction Diferrence Std: 4.97%
+Adjusted Prediction: 1.41%
+Prediction 1Std Range: (-3.56%, 6.38%)
+Vector Difference: 0.0681
+Vector Difference Mean: 0.372
+
+CRSP:
+Prediction: -5.14%
+Prediction Difference Mean: -0.1%
+Prediction Diferrence Std: 5.68%
+Adjusted Prediction: -5.239999999999999%
+Prediction 1Std Range: (-10.92%, 0.44%)
+Vector Difference: 0.0912
+Vector Difference Mean: 0.3848
+
+LUV:
+Prediction: -1.07%
+Prediction Difference Mean: 0.05%
+Prediction Diferrence Std: 3.95%
+Adjusted Prediction: -1.02%
+Prediction 1Std Range: (-4.97%, 2.93%)
+Vector Difference: 0.0631
+Vector Difference Mean: 0.2817
+
+SBUX:
+Prediction: -0.86%
+Prediction Difference Mean: 0.1%
+Prediction Diferrence Std: 2.96%
+Adjusted Prediction: -0.76%
+Prediction 1Std Range: (-3.72%, 2.2%)
+Vector Difference: 0.1028
+Vector Difference Mean: 0.226
+
+SPCE:
+Prediction: 1.1%
+Prediction Difference Mean: -0.14%
+Prediction Diferrence Std: 8.48%
+Adjusted Prediction: 0.9600000000000001%
+Prediction 1Std Range: (-7.52%, 9.44%)
+Vector Difference: 0.2428
+Vector Difference Mean: 0.5668
+
+TSLA:
+Prediction: 0.73%
+Prediction Difference Mean: 0.09%
+Prediction Diferrence Std: 6.23%
+Adjusted Prediction: 0.82%
+Prediction 1Std Range: (-5.41%, 7.05%)
+Vector Difference: 0.0756
+Vector Difference Mean: 0.4202
