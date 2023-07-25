@@ -1,0 +1,11 @@
+,Stock,Pattern,Result,ResultNum,Percentage
+0,AAPL,"[True, False, False, True, True]",[True],31,61.29032258064516
+1,AAPL,"[False, True, False, False, True, True]",[True],19,63.1578947368421
+2,ADPT,"[True, False, True, False, True]",[False],39,64.1025641025641
+3,ADPT,"[True, True, False, True, False, True]",[False],15,73.33333333333333
+4,AMD,"[False, False, False, True, False, True]",[True],10,70.0
+5,BA,"[False, True, False, True, False]",[True],36,61.111111111111114
+6,BA,"[False, False, True, False, True, False]",[True],17,76.47058823529412
+7,LUV,"[False, True, False, False]",[False],62,61.29032258064516
+8,LUV,"[True, False, True, False, False]",[False],35,62.857142857142854
+9,LUV,"[True, True, False, True, False, False]",[False],16,68.75
