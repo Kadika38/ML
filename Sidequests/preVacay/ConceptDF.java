@@ -1,4 +1,4 @@
-package Sidequests;
+package Sidequests.preVacay;
 
 import java.io.File;
 import java.io.FileWriter;

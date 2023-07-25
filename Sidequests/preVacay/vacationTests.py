@@ -1,7 +1,7 @@
-import math
-import requests
-from matplotlib import pyplot as plt
-import pandas as pd
+    import math
+    import requests
+    from matplotlib import pyplot as plt
+    import pandas as pd
 
 def makePrediction(df, patternSize):
     # calculate most similar vector pattern (most similar to the most recent pattern)
@@ -102,6 +102,7 @@ for stock in stocks:
     file.write("Prediction 1Std Range: (" + str(round(adjustedPrediction - predictionDifStd, 2)) + "%, " + str(round(adjustedPrediction + predictionDifStd, 2)) + "%)\n")
     file.write("Vector Difference: " + str(predictionVectorDif) + "\n")
     file.write("Vector Difference Mean: " + str(round(predictionStatisticsDF['vectorDif'].mean(), 4)) + "\n")
+    file.write("Analysis: \n")
     file.close()
 
     

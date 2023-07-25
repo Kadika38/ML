@@ -6,17 +6,19 @@ Prediction Difference Mean: -0.03%
 Prediction Diferrence Std: 2.85%
 Adjusted Prediction: -1.95%
 Prediction 1Std Range: (-4.8%, 0.9%)
-Vector Difference: 0.0213
+Vector Difference: 0.0184
 Vector Difference Mean: 0.2132
+Analysis: Looks negative nearly for sure, relatively safe
 
 ADPT:
 Prediction: 0.46%
-Prediction Difference Mean: -0.24%
-Prediction Diferrence Std: 6.74%
-Adjusted Prediction: 0.22000000000000003%
-Prediction 1Std Range: (-6.52%, 6.96%)
-Vector Difference: 0.2281
-Vector Difference Mean: 0.4573
+Prediction Difference Mean: -0.23%
+Prediction Diferrence Std: 6.73%
+Adjusted Prediction: 0.23%
+Prediction 1Std Range: (-6.5%, 6.96%)
+Vector Difference: 0.0847
+Vector Difference Mean: 0.4574
+Analysis: no clue which way it'll go, vector dif is pretty low though
 
 AMC:
 Prediction: -0.62%
@@ -26,6 +28,7 @@ Adjusted Prediction: -0.19%
 Prediction 1Std Range: (-15.54%, 15.16%)
 Vector Difference: 0.1337
 Vector Difference Mean: 1.1158
+Analysis: haha absolutely no clue
 
 AMD:
 Prediction: 1.15%
@@ -33,8 +36,9 @@ Prediction Difference Mean: 0.06%
 Prediction Diferrence Std: 4.81%
 Adjusted Prediction: 1.21%
 Prediction 1Std Range: (-3.6%, 6.02%)
-Vector Difference: 0.0275
+Vector Difference: 0.0362
 Vector Difference Mean: 0.3414
+Analysis: no help, too close to zero, not sure which way it'll go
 
 BA:
 Prediction: 1.41%
@@ -42,8 +46,9 @@ Prediction Difference Mean: -0.0%
 Prediction Diferrence Std: 4.97%
 Adjusted Prediction: 1.41%
 Prediction 1Std Range: (-3.56%, 6.38%)
-Vector Difference: 0.0681
+Vector Difference: 0.0587
 Vector Difference Mean: 0.372
+Analysis: no help, too close to zero, not sure which way it'll go
 
 CRSP:
 Prediction: -5.14%
@@ -53,6 +58,7 @@ Adjusted Prediction: -5.239999999999999%
 Prediction 1Std Range: (-10.92%, 0.44%)
 Vector Difference: 0.0912
 Vector Difference Mean: 0.3848
+Analysis: looks clearly negative
 
 LUV:
 Prediction: -1.07%
@@ -62,6 +68,7 @@ Adjusted Prediction: -1.02%
 Prediction 1Std Range: (-4.97%, 2.93%)
 Vector Difference: 0.0631
 Vector Difference Mean: 0.2817
+Analysis: no help, too close to zero, not sure which way it'll go
 
 SBUX:
 Prediction: -0.86%
@@ -69,17 +76,19 @@ Prediction Difference Mean: 0.1%
 Prediction Diferrence Std: 2.96%
 Adjusted Prediction: -0.76%
 Prediction 1Std Range: (-3.72%, 2.2%)
-Vector Difference: 0.1028
+Vector Difference: 0.0877
 Vector Difference Mean: 0.226
+Analysis: no help, too close to zero, not sure which way it'll go
 
 SPCE:
 Prediction: 1.1%
-Prediction Difference Mean: -0.14%
+Prediction Difference Mean: -0.15%
 Prediction Diferrence Std: 8.48%
-Adjusted Prediction: 0.9600000000000001%
-Prediction 1Std Range: (-7.52%, 9.44%)
-Vector Difference: 0.2428
-Vector Difference Mean: 0.5668
+Adjusted Prediction: 0.9500000000000001%
+Prediction 1Std Range: (-7.53%, 9.43%)
+Vector Difference: 0.2441
+Vector Difference Mean: 0.5667
+Analysis: no help, too close to zero, not sure which way it'll go
 
 TSLA:
 Prediction: 0.73%
@@ -87,5 +96,6 @@ Prediction Difference Mean: 0.09%
 Prediction Diferrence Std: 6.23%
 Adjusted Prediction: 0.82%
 Prediction 1Std Range: (-5.41%, 7.05%)
-Vector Difference: 0.0756
+Vector Difference: 0.0616
 Vector Difference Mean: 0.4202
+Analysis: no help, too close to zero, not sure which way it'll go
