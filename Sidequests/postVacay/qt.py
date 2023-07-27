@@ -97,7 +97,7 @@ for stock in stocks:
     for df in allDataFrames:
         for index in range(len(df.index)):
             if (mostRecentPatterns.count(df.iloc[index]['Pattern']) > 0):
-                if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 60.0):
+                if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 65.0):
                     finalDF.loc[len(finalDF.index)] = [stock, df.iloc[index]['Pattern'], df.iloc[index]['Result'], df.iloc[index]['ResultNum'], df.iloc[index]['Percentage']]
     
 
