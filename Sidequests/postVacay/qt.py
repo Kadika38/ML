@@ -62,6 +62,10 @@ def createPatternResultDF(df, ps, rs):
 
 stocks = ["AAPL", "ADPT", "AMC", "AMD", "BA", "CRSP", "LUV", "SBUX", "SPCE", "TSLA"]
 stocksTest = ["AAPL"]
+moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F", "GE", "BA", "QCOM", "HMC", "TM", "INTC", "NKE", "AMZN", "CRSP",
+              "LUV", "IBM", "LMT", "CAT", "NOC", "GM", "AAPL", "NVDA", "SONY", "EA", "DE", "AMD", "ATVI", "HON", "DAL", "AAL", "ALK", "JBLU",
+              "UAL", "SGEN", "ADPT", "SPOT", "NTLA", "SNAP", "GOOG", "FCEL", "BYND", "SPCE", "MCD", "XOM", "STNG", "ORGO", "RACE", "NKLA", "RTX",
+              "AMC", "M", "REAL", "MRNA", "ACB", "MP", "PLUG", "AI", "PLL", "GME", "PFE"]
 
 finalDF = pd.DataFrame()
 finalDF['Stock'] = []
@@ -70,7 +74,7 @@ finalDF['Result'] = []
 finalDF['ResultNum'] = []
 finalDF['Percentage'] = []
 
-for stock in stocks:
+for stock in moreStocks:
     response = requests.get("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&format=JSON&symbol=" + stock + "&previous_close=true&outputsize=1000")
     json = response.json()
     originalDF = pd.DataFrame(json['values'])
@@ -97,7 +101,7 @@ for stock in stocks:
     for df in allDataFrames:
         for index in range(len(df.index)):
             if (mostRecentPatterns.count(df.iloc[index]['Pattern']) > 0):
-                if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 65.0):
+                if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 70.0):
                     finalDF.loc[len(finalDF.index)] = [stock, df.iloc[index]['Pattern'], df.iloc[index]['Result'], df.iloc[index]['ResultNum'], df.iloc[index]['Percentage']]
     
 

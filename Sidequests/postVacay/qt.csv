@@ -1,5 +1,11 @@
 ,Stock,Pattern,Result,ResultNum,Percentage
-0,CRSP,"[True, False, True, False, False, True]",[False],16,68.75
-1,SBUX,"[True, False, True, False, True, False]",[False],20,80.0
-2,TSLA,"[False, False, True, False, False]",[False],26,65.38461538461539
-3,TSLA,"[False, False, False, True, False, False]",[False],16,68.75
+0,DIS,"[False, False, True, False, True, True]",[False],18,72.22222222222221
+1,SBUX,"[True, False, True, False, False, True, True]",[False],11,72.72727272727273
+2,NKE,"[True, False, False, True, False, True, True]",[True],12,75.0
+3,LMT,"[False, False, False, True, False]",[True],20,75.0
+4,LMT,"[True, False, False, False, True, False]",[True],14,71.42857142857143
+5,NVDA,"[True, True, False, True, True, False]",[False],16,75.0
+6,DE,"[False, False, False, True]",[True],53,75.47169811320755
+7,DE,"[True, False, False, False, True]",[True],31,87.09677419354838
+8,DE,"[True, True, False, False, False, True]",[True],21,85.71428571428571
+9,M,"[False, True, False, True, False, True, True]",[False],13,76.92307692307693
