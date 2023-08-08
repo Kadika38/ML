@@ -60,49 +60,56 @@ def createPatternResultDF(df, ps, rs):
 
     return newDF.sort_values('Percentage')
 
-stocks = ["AAPL", "ADPT", "AMC", "AMD", "BA", "CRSP", "LUV", "SBUX", "SPCE", "TSLA"]
 stocksTest = ["AAPL"]
 moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F", "GE", "BA", "QCOM", "HMC", "TM", "INTC", "NKE", "AMZN", "CRSP",
               "LUV", "IBM", "LMT", "CAT", "NOC", "GM", "AAPL", "NVDA", "SONY", "EA", "DE", "AMD", "ATVI", "HON", "DAL", "AAL", "ALK", "JBLU",
               "UAL", "SGEN", "ADPT", "SPOT", "NTLA", "SNAP", "GOOG", "FCEL", "BYND", "SPCE", "MCD", "XOM", "STNG", "ORGO", "RACE", "NKLA", "RTX",
               "AMC", "M", "REAL", "MRNA", "ACB", "MP", "PLUG", "AI", "PLL", "GME", "PFE"]
 
-finalDF = pd.DataFrame()
-finalDF['Stock'] = []
-finalDF['Pattern'] = []
-finalDF['Result'] = []
-finalDF['ResultNum'] = []
-finalDF['Percentage'] = []
 
-for stock in moreStocks:
-    response = requests.get("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&format=JSON&symbol=" + stock + "&previous_close=true&outputsize=1000")
+scoreboard = pd.DataFrame()
+scoreboard['Day'] = []
+scoreboard['Prediction'] = []
+scoreboard['Reality'] = []
+scoreboard['Correct'] = []
+
+for stock in stocksTest:
+    response = requests.get("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&format=JSON&symbol=" + stock + "&previous_close=true&outputsize=1260")
     json = response.json()
     originalDF = pd.DataFrame(json['values'])
     originalDF["pcVector"] = 100.0 * ((originalDF['close'].astype(float) - originalDF['previous_close'].astype(float)) / originalDF["previous_close"].astype(float))
 
-    mostRecentPatterns = []
-    for r in range(2, 15):
-        pattern = []
-        for i in range(r):
-            if (originalDF.iloc[i]['pcVector'] > 0.0):
-                pattern.insert(0, True)
-            else:
-                pattern.insert(0, False)
-        mostRecentPatterns.append(pattern)
-    print(mostRecentPatterns)
+    for day in range(260):
+        print("Day: " + str(day))
+        datetime = originalDF.iloc[day-1]['datetime']
+        actualNextDay = False
+        if (originalDF.iloc[day-1]['pcVector'] > 0.0):
+            actualNextDay = True
+        newDF = originalDF.iloc[day:]
 
-    allDataFrames = []
+        mostRecentPatterns = []
+        for r in range(2, 15):
+            pattern = []
+            for i in range(r):
+                if (newDF.iloc[i]['pcVector'] > 0.0):
+                    pattern.insert(0, True)
+                else:
+                    pattern.insert(0, False)
+            mostRecentPatterns.append(pattern)
 
-    for ps in range(2, 15):
-        for rs in range(1,2):
-            print("Pattern Size: " + str(ps) + ", Result Size: " + str(rs))
-            allDataFrames.append(createPatternResultDF(originalDF, ps, rs))
+        allDataFrames = []
 
-    for df in allDataFrames:
-        for index in range(len(df.index)):
-            if (mostRecentPatterns.count(df.iloc[index]['Pattern']) > 0):
-                if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 70.0):
-                    finalDF.loc[len(finalDF.index)] = [stock, df.iloc[index]['Pattern'], df.iloc[index]['Result'], df.iloc[index]['ResultNum'], df.iloc[index]['Percentage']]
-    
+        for ps in range(2, 15):
+            for rs in range(1,2):
+                allDataFrames.append(createPatternResultDF(originalDF, ps, rs))
 
-finalDF.to_csv('Sidequests/postVacay/qt.csv')
+        for df in allDataFrames:
+            for index in range(len(df.index)):
+                if (mostRecentPatterns.count(df.iloc[index]['Pattern']) > 0):
+                    if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 70.0):
+                        scoreboard.loc[len(scoreboard.index)] = [datetime, df.iloc[index]['Result'], actualNextDay, (df.iloc[index]['Result'] == actualNextDay)]
+
+# adjust prediction/reality comparison to work
+# get number of times True appears in Correct column
+# run with moreStocks
+print(scoreboard)
