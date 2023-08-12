@@ -1,4 +1,4 @@
-import math
+import time
 import requests
 from matplotlib import pyplot as plt
 import pandas as pd
@@ -61,7 +61,7 @@ def createPatternResultDF(df, ps, rs):
     return newDF.sort_values('Percentage')
 
 stocksTest = ["AAPL"]
-moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F", "GE", "BA", "QCOM", "HMC", "TM", "INTC", "NKE", "AMZN", "CRSP",
+moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F", "GE", "BA", "QCOM", "TM", "INTC", "NKE", "AMZN", "CRSP",
               "LUV", "IBM", "LMT", "CAT", "NOC", "GM", "AAPL", "NVDA", "SONY", "EA", "DE", "AMD", "ATVI", "HON", "DAL", "AAL", "ALK", "JBLU",
               "UAL", "SGEN", "ADPT", "SPOT", "NTLA", "SNAP", "GOOG", "FCEL", "BYND", "SPCE", "MCD", "XOM", "STNG", "ORGO", "RACE", "NKLA", "RTX",
               "AMC", "M", "REAL", "MRNA", "ACB", "MP", "PLUG", "AI", "PLL", "GME", "PFE"]
@@ -73,13 +73,21 @@ scoreboard['Prediction'] = []
 scoreboard['Reality'] = []
 scoreboard['Correct'] = []
 
-for stock in stocksTest:
+#stuff for printable timeline estimation
+totaliterations = 260 * len(moreStocks)
+n = 0
+totaltime = 0.0
+
+
+for stock in moreStocks:
+    print(stock)
     response = requests.get("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&format=JSON&symbol=" + stock + "&previous_close=true&outputsize=1260")
     json = response.json()
     originalDF = pd.DataFrame(json['values'])
     originalDF["pcVector"] = 100.0 * ((originalDF['close'].astype(float) - originalDF['previous_close'].astype(float)) / originalDF["previous_close"].astype(float))
 
     for day in range(260):
+        startTime = time.time()
         print("Day: " + str(day))
         datetime = originalDF.iloc[day-1]['datetime']
         actualNextDay = False
@@ -107,9 +115,11 @@ for stock in stocksTest:
             for index in range(len(df.index)):
                 if (mostRecentPatterns.count(df.iloc[index]['Pattern']) > 0):
                     if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 70.0):
-                        scoreboard.loc[len(scoreboard.index)] = [datetime, df.iloc[index]['Result'], actualNextDay, (df.iloc[index]['Result'] == actualNextDay)]
+                        scoreboard.loc[len(scoreboard.index)] = [datetime, df.iloc[index]['Result'], actualNextDay, (df.iloc[index]['Result'][0] == actualNextDay)]
+        # print out time left based on average iteration time and iterations left
+        n += 1
+        totaltime += (time.time() - startTime)
+        print("Time left: " + str((totaliterations - n) * (totaltime / n)))
 
-# adjust prediction/reality comparison to work
-# get number of times True appears in Correct column
-# run with moreStocks
 print(scoreboard)
+print(scoreboard["Correct"].value_counts()[True])

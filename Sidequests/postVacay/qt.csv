@@ -1,20 +1,20 @@
 ,Stock,Pattern,Result,ResultNum,Percentage
-0,NFLX,"[True, False, False, True, True, True]",[False],18,72.22222222222221
-1,NFLX,"[True, True, False, False, True, True, True]",[False],10,90.0
-2,MSFT,"[False, True, False, False, True, True]",[False],21,71.42857142857143
-3,SBUX,"[True, True, False, True, True, False, True]",[False],10,90.0
-4,BA,"[True, False, False, False, True, True]",[False],14,71.42857142857143
-5,NKE,"[True, False, False, True, True, True]",[True],11,72.72727272727273
-6,LMT,"[False, True, False, False, False, True]",[False],17,70.58823529411765
-7,CAT,"[True, True, False, False, False, True]",[True],18,77.77777777777779
-8,HON,"[False, False, False, False, False, True]",[True],14,71.42857142857143
-9,AAL,"[True, False, False, False, True, False, True]",[False],12,83.33333333333334
-10,GOOG,"[True, False, False, True, False, True]",[True],14,78.57142857142857
-11,XOM,"[True, False, False, True, True, False]",[False],11,90.9090909090909
-12,STNG,"[True, True, True, True, False, True]",[True],14,71.42857142857143
-13,NKLA,"[True, True, False, True, False, False]",[False],16,75.0
-14,RTX,"[True, True, False, False, False, True]",[True],17,70.58823529411765
-15,ACB,"[True, False, True, False, False]",[False],38,73.68421052631578
-16,ACB,"[True, True, False, True, False, False]",[False],14,85.71428571428571
-17,PLUG,"[True, False, False, True, False, False]",[True],17,70.58823529411765
-18,AI,"[True, False, False, False, False]",[False],21,80.95238095238095
+0,SBUX,"[False, True, False, False, True, False]",[True],13,76.92307692307693
+1,HMC,"[True, False, True, False, False]",[True],31,74.19354838709677
+2,HMC,"[True, True, False, True, False, False]",[True],17,70.58823529411765
+3,NKE,"[True, True, False, False, False, False]",[False],14,78.57142857142857
+4,LMT,"[False, False, True, False, True, False, True]",[True],10,80.0
+5,AAPL,"[False, False, True, False, False, True]",[True],12,75.0
+6,NVDA,"[False, False, False, False]",[True],34,70.58823529411765
+7,NVDA,"[True, False, False, False, False]",[True],23,73.91304347826086
+8,NVDA,"[True, True, False, False, False, False]",[True],13,84.61538461538461
+9,EA,"[False, True, False, False, True, False]",[False],11,81.81818181818183
+10,NTLA,"[True, False, True, True, False, True]",[False],13,92.3076923076923
+11,RACE,"[True, False, True, True, False]",[True],31,70.96774193548387
+12,RACE,"[True, False, True, False, True, True, False]",[True],14,71.42857142857143
+13,NKLA,"[False, False, True, False]",[False],89,70.78651685393258
+14,NKLA,"[False, False, False, True, False]",[False],55,70.9090909090909
+15,M,"[True, False, False, False, True, False]",[False],14,78.57142857142857
+16,ACB,"[True, False, True, True]",[False],45,71.11111111111111
+17,AI,"[False, False, False, False, True, False]",[True],11,81.81818181818183
+18,GME,"[True, True, False, False, True, False]",[True],12,83.33333333333334
