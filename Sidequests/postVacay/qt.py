@@ -2,6 +2,7 @@ import time
 import requests
 import pandas as pd
 
+startTime = time.time()
 lastRequest = 0.0
 
 def handleTwelveDataRequests(requestString):
@@ -9,7 +10,7 @@ def handleTwelveDataRequests(requestString):
     while time.time() - lastRequest < (7.6):
         wasteTime = True
         # wait
-    print(time.time())
+    #print(time.time())
     response = requests.get(requestString)
     lastRequest = time.time()
     return response
@@ -83,7 +84,7 @@ def developStockSpread(stocks, money):
     for stock in stocks:
         response = handleTwelveDataRequests("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&type=stock&outputsize=1&previous_close=true&symbol=" + stock + "&format=JSON")
         json = response.json()
-        print(json)
+        # print(json)
         close = float(json['values'][0]['close'])
         prices.append(close)
         shares.append(0)
@@ -91,7 +92,7 @@ def developStockSpread(stocks, money):
         total += close
 
     while total > money:
-        print("Cannot purchase all stocks with current amount of cash! Removing most expensive stock.")
+        print("Cannot purchase all stocks with current amount of cash! Running without most expensive stock.")
         highest = 0.0
         highestIndex = 0
         for index in range(len(stocks)):
@@ -154,6 +155,8 @@ def developStockSpread(stocks, money):
     print(purchaseString)
 
 def run(money, stocks, maxPatternSize, maxResultPatternSize, minPercentHistoricalConfidenceInPatternResultPair, minHistoricalOccurancesOfPatternResultPair):
+    print("Running...")
+
     finalDF = pd.DataFrame()
     finalDF['Stock'] = []
     finalDF['Pattern'] = []
@@ -176,13 +179,13 @@ def run(money, stocks, maxPatternSize, maxResultPatternSize, minPercentHistorica
                 else:
                     pattern.insert(0, False)
             mostRecentPatterns.append(pattern)
-        print(mostRecentPatterns)
+        # print(mostRecentPatterns)
 
         allDataFrames = []
 
         for ps in range(2, maxPatternSize+1):
             for rs in range(1,maxResultPatternSize+1):
-                print("Pattern Size: " + str(ps) + ", Result Size: " + str(rs))
+                # print("Pattern Size: " + str(ps) + ", Result Size: " + str(rs))
                 allDataFrames.append(createPatternResultDF(originalDF, ps, rs))
 
         for df in allDataFrames:
@@ -207,3 +210,5 @@ moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F",
               "AMC", "M", "REAL", "MRNA", "ACB", "MP", "PLUG", "AI", "PLL", "GME", "PFE"]
 
 run(1000, moreStocks, 14, 1, 70.0, 9)
+totalTimeRun = time.time() - startTime
+print("Run time: " + str(totalTimeRun / 60.0))
