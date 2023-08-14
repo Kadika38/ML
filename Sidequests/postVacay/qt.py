@@ -60,7 +60,88 @@ def createPatternResultDF(df, ps, rs):
 
     return newDF.sort_values('Percentage')
 
-def run(stocks, maxPatternSize, maxResultPatternSize):
+def developStockSpread(stocks, money):
+    prices = []
+    shares = []
+    portfolioPercentage = []
+    total = 0
+
+    lowest = 0.0
+    lowestIndex = 0
+
+    for stock in stocks:
+        response = requests.get("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&type=stock&outputsize=1&previous_close=true&symbol=" + stock + "&format=JSON")
+        json = response.json()
+        close = float(json['values'][0]['close'])
+        prices.append(close)
+        shares.append(0)
+        portfolioPercentage.append(0.0)
+        total += close
+
+    while total > money:
+        print("Cannot purchase all stocks with current amount of cash! Removing most expensive stock.")
+        highest = 0.0
+        highestIndex = 0
+        for index in range(len(stocks)):
+            if prices[index] > highest:
+                highest = prices[index]
+                highestIndex = index
+            if prices[index] < lowest:
+                lowest = prices[index]
+                lowestIndex = index
+        stocks.pop(highestIndex)
+        prices.pop(highestIndex)
+        shares.pop(highestIndex)
+        portfolioPercentage.pop(highestIndex)
+        total = 0
+        for price in prices:
+            total += price
+
+    totalInvested = 0
+
+    while money >= lowest:
+        # purchase 1 share of the stock which makes up the smallest portion of the portfolio (and is purchasable with money that is left)
+
+        # first find which stock that is
+        smallestPortion = 1.0
+        smallestPortionStockIndex = 0
+        nextPurchaseFound = False
+        for index in range(len(stocks)):
+            if portfolioPercentage[index] <= smallestPortion and prices[index] <= money:
+                smallestPortionStockIndex = index
+                smallestPortion = portfolioPercentage[index]
+                nextPurchaseFound = True
+        
+        if not nextPurchaseFound:
+            break;
+
+        # 'purchase' 1 share of that stock
+        money = money - prices[smallestPortionStockIndex]
+        shares[smallestPortionStockIndex] = shares[smallestPortionStockIndex] + 1
+        totalInvested += prices[smallestPortionStockIndex]
+
+        # re evaluate portfolio percentages
+        for index in range(len(stocks)):
+            moneyInStock = prices[index] * shares[index]
+            portfolioPercentage[index] = moneyInStock / totalInvested
+
+    """ print(stocks)
+    print(prices)
+    print(shares)
+    print(portfolioPercentage)
+    print("Money left: " + str(money)) """
+
+    purchaseString = "Todays purchases: "
+    for index in range(len(stocks)):
+        purchaseString += str(shares[index]) + " " + stocks[index]
+        if not index == len(stocks)-1:
+            purchaseString += ", "
+        else:
+            purchaseString += "."
+    
+    print(purchaseString)
+
+def run(money, stocks, maxPatternSize, maxResultPatternSize, minPercentHistoricalConfidenceInPatternResultPair, minHistoricalOccurancesOfPatternResultPair):
     finalDF = pd.DataFrame()
     finalDF['Stock'] = []
     finalDF['Pattern'] = []
@@ -95,15 +176,22 @@ def run(stocks, maxPatternSize, maxResultPatternSize):
         for df in allDataFrames:
             for index in range(len(df.index)):
                 if (mostRecentPatterns.count(df.iloc[index]['Pattern']) > 0):
-                    if (df.iloc[index]['ResultNum'] > 9 and df.iloc[index]['Percentage'] > 70.0):
+                    if (df.iloc[index]['ResultNum'] > minHistoricalOccurancesOfPatternResultPair and df.iloc[index]['Percentage'] > minPercentHistoricalConfidenceInPatternResultPair):
                         finalDF.loc[len(finalDF.index)] = [stock, df.iloc[index]['Pattern'], df.iloc[index]['Result'], df.iloc[index]['ResultNum'], df.iloc[index]['Percentage']]
     
-    # move stockSpread over here
+    finalStocks = []
+    for index in range(len(finalDF.index)):
+        if finalStocks.count(finalDF.iloc[index]['Stock']) == 0:
+            finalStocks.append(finalDF.iloc[index]['Stock'])
+
+    developStockSpread(finalStocks, money)
 
 basicStocks = ["AAPL", "ADPT", "AMC", "AMD", "BA", "CRSP", "LUV", "SBUX", "SPCE", "TSLA"]
 stocksTest = ["AAPL"]
-moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F", "GE", "BA", "QCOM", "HMC", "TM", "INTC", "NKE", "AMZN", "CRSP",
+stocksTest2 = ["AI"]
+moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F", "GE", "BA", "QCOM", "TM", "INTC", "NKE", "AMZN", "CRSP",
               "LUV", "IBM", "LMT", "CAT", "NOC", "GM", "AAPL", "NVDA", "SONY", "EA", "DE", "AMD", "ATVI", "HON", "DAL", "AAL", "ALK", "JBLU",
               "UAL", "SGEN", "ADPT", "SPOT", "NTLA", "SNAP", "GOOG", "FCEL", "BYND", "SPCE", "MCD", "XOM", "STNG", "ORGO", "NKLA", "RTX",
               "AMC", "M", "REAL", "MRNA", "ACB", "MP", "PLUG", "AI", "PLL", "GME", "PFE"]
 
+run(1000, moreStocks, 14, 1, 70.0, 9)
