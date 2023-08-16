@@ -7,7 +7,7 @@ lastRequest = 0.0
 
 def handleTwelveDataRequests(requestString):
     global lastRequest
-    while time.time() - lastRequest < (7.6):
+    while time.time() - lastRequest < (10.0):
         wasteTime = True
         # wait
     #print(time.time())
@@ -84,12 +84,15 @@ def developStockSpread(stocks, money):
     for stock in stocks:
         response = handleTwelveDataRequests("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&type=stock&outputsize=1&previous_close=true&symbol=" + stock + "&format=JSON")
         json = response.json()
-        # print(json)
-        close = float(json['values'][0]['close'])
-        prices.append(close)
-        shares.append(0)
-        portfolioPercentage.append(0.0)
-        total += close
+        try:
+            close = float(json['values'][0]['close'])
+            prices.append(close)
+            shares.append(0)
+            portfolioPercentage.append(0.0)
+            total += close
+        except:
+            print("Error occurred...")
+            print(json)
 
     while total > money:
         print("Cannot purchase all stocks with current amount of cash! Running without most expensive stock.")
@@ -167,6 +170,7 @@ def run(money, stocks, maxPatternSize, maxResultPatternSize, minPercentHistorica
     for stock in stocks:
         response = handleTwelveDataRequests("https://api.twelvedata.com/time_series?apikey=c3efaf8bc4d14828a7574cf215662e7f&interval=1day&format=JSON&symbol=" + stock + "&previous_close=true&outputsize=1000")
         json = response.json()
+        #print(json)
         originalDF = pd.DataFrame(json['values'])
         originalDF["pcVector"] = 100.0 * ((originalDF['close'].astype(float) - originalDF['previous_close'].astype(float)) / originalDF["previous_close"].astype(float))
 
