@@ -213,6 +213,6 @@ moreStocks = ["CCL", "BNTX", "TSLA", "NFLX", "MSFT", "META", "DIS", "SBUX", "F",
               "UAL", "SGEN", "ADPT", "SPOT", "NTLA", "SNAP", "GOOG", "FCEL", "BYND", "SPCE", "MCD", "XOM", "STNG", "ORGO", "NKLA", "RTX",
               "AMC", "M", "REAL", "MRNA", "ACB", "MP", "PLUG", "AI", "PLL", "GME", "PFE"]
 
-run(1000, moreStocks, 14, 1, 70.0, 9)
+run(982.22, moreStocks, 14, 1, 70.0, 9)
 totalTimeRun = time.time() - startTime
 print("Run time: " + str(totalTimeRun / 60.0))
